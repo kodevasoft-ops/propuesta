@@ -250,6 +250,66 @@
     font-family:'Playfair Display',serif; font-style:italic;
     font-size:0.88rem; color:rgba(242,236,224,0.15); letter-spacing:1px;
   }
+
+  /* SECCIÓN PREGUNTAS */
+  .preguntas-wrapper {
+    margin:60px 0;
+    opacity:0; animation:fadeUp 1s ease forwards 1.9s;
+  }
+  .preguntas-titulo {
+    text-align:center; margin-bottom:10px;
+  }
+  .preguntas-titulo span {
+    font-size:0.62rem; letter-spacing:6px; text-transform:uppercase; color:var(--dorado);
+  }
+  .preguntas-subtitulo {
+    text-align:center; font-family:'Playfair Display',serif; font-style:italic;
+    font-size:1.1rem; color:rgba(242,236,224,0.55); margin-bottom:32px;
+  }
+
+  .pregunta-item {
+    display:flex; align-items:center; justify-content:space-between; gap:16px;
+    background:rgba(255,255,255,0.025);
+    border:1px solid rgba(200,164,90,0.12);
+    border-left:3px solid var(--rojo);
+    padding:16px 22px; border-radius:1px; margin-bottom:12px;
+    transition:all 0.3s ease;
+  }
+  .pregunta-item:hover { border-left-color:var(--dorado); background:rgba(255,255,255,0.04); }
+  .pregunta-texto { font-size:0.82rem; color:var(--crema); line-height:1.5; flex:1; }
+  .pregunta-select {
+    background:rgba(122,16,16,0.3);
+    border:1px solid rgba(200,164,90,0.3);
+    color:var(--dorado);
+    font-family:'Raleway',sans-serif;
+    font-size:0.72rem; letter-spacing:2px;
+    padding:8px 14px; border-radius:1px; cursor:pointer;
+    outline:none; min-width:90px;
+    transition:all 0.3s;
+  }
+  .pregunta-select:focus { border-color:var(--dorado); background:rgba(122,16,16,0.5); }
+  .pregunta-select option { background:#1a0505; color:var(--crema); }
+
+  /* PÁRRAFO LIBRE */
+  .parrafo-wrapper {
+    margin:40px 0 0;
+  }
+  .parrafo-label {
+    font-size:0.62rem; letter-spacing:5px; text-transform:uppercase;
+    color:var(--dorado); display:block; margin-bottom:14px; text-align:center;
+  }
+  .parrafo-area {
+    width:100%; min-height:130px;
+    background:rgba(255,255,255,0.025);
+    border:1px solid rgba(200,164,90,0.25);
+    border-left:3px solid var(--rojo);
+    color:var(--crema); font-family:'Raleway',sans-serif;
+    font-size:0.83rem; line-height:1.75;
+    padding:20px 22px; border-radius:1px; resize:vertical; outline:none;
+    transition:border-color 0.3s;
+  }
+  .parrafo-area::placeholder { color:rgba(242,236,224,0.25); }
+  .parrafo-area:focus { border-color:var(--dorado); }
 </style>
 </head>
 <body>
@@ -424,6 +484,79 @@
     <span class="cierre-firma">Con todo lo que soy</span>
   </div>
 
+  <!-- PREGUNTAS PARA CONOCERTE -->
+  <div class="preguntas-wrapper">
+    <div class="preguntas-titulo"><span>✦ &nbsp; Quiero conocerte mejor &nbsp; ✦</span></div>
+    <p class="preguntas-subtitulo">Responde con honestidad — cada detalle tuyo me importa</p>
+
+    <div class="pregunta-item">
+      <span class="pregunta-texto">¿Puedo Besarte?</span>
+      <select class="pregunta-select" id="p1"><option value="">—</option><option value="Sí">Sí</option><option value="No">No</option></select>
+    </div>
+    <div class="pregunta-item">
+      <span class="pregunta-texto">¿Puedo masajearte el cuello y espalda?</span>
+      <select class="pregunta-select" id="p2"><option value="">—</option><option value="Sí">Sí</option><option value="No">No</option></select>
+    </div>
+    <div class="pregunta-item">
+      <span class="pregunta-texto">¿Puedo morderte ell cuello y labios delicadamente?</span>
+      <select class="pregunta-select" id="p3"><option value="">—</option><option value="Sí">Sí</option><option value="No">No</option></select>
+    </div>
+    <div class="pregunta-item">
+      <span class="pregunta-texto">¿Puedo agarrarte de las manos?</span>
+      <select class="pregunta-select" id="p4"><option value="">—</option><option value="Sí">Sí</option><option value="No">No</option></select>
+    </div>
+    <div class="pregunta-item">
+      <span class="pregunta-texto">¿Puedo masajearte las biubis?</span>
+      <select class="pregunta-select" id="p5"><option value="">—</option><option value="Sí">Sí</option><option value="No">No</option></select>
+    </div>
+    <div class="pregunta-item">
+      <span class="pregunta-texto">¿Puedo abrazarte de espaldas?</span>
+      <select class="pregunta-select" id="p6"><option value="">—</option><option value="Sí">Sí</option><option value="No">No</option></select>
+    </div>
+    <div class="pregunta-item">
+      <span class="pregunta-texto">¿Puedo nalguearte?</span>
+      <select class="pregunta-select" id="p7"><option value="">—</option><option value="Sí">Sí</option><option value="No">No</option></select>
+    </div>
+    <div class="pregunta-item">
+      <span class="pregunta-texto">¿Puedo tomarte fotos?</span>
+      <select class="pregunta-select" id="p8"><option value="">—</option><option value="Sí">Sí</option><option value="No">No</option></select>
+    </div>
+    <div class="pregunta-item">
+      <span class="pregunta-texto">¿Puedo masajearte las nlgas?</span>
+      <select class="pregunta-select" id="p9"><option value="">—</option><option value="Sí">Sí</option><option value="No">No</option></select>
+    </div>
+    <div class="pregunta-item">
+      <span class="pregunta-texto">¿Prefieres la música lenta a la música movida?</span>
+      <select class="pregunta-select" id="p10"><option value="">—</option><option value="Sí">Sí</option><option value="No">No</option></select>
+    </div>
+    <div class="pregunta-item">
+      <span class="pregunta-texto">¿Te consideras más romántica que apasionada?</span>
+      <select class="pregunta-select" id="p11"><option value="">—</option><option value="Sí">Sí</option><option value="No">No</option></select>
+    </div>
+    <div class="pregunta-item">
+      <span class="pregunta-texto">¿Crees en el amor a primera vista?</span>
+      <select class="pregunta-select" id="p12"><option value="">—</option><option value="Sí">Sí</option><option value="No">No</option></select>
+    </div>
+    <div class="pregunta-item">
+      <span class="pregunta-texto">¿Eres de las que dice lo que piensa sin filtro?</span>
+      <select class="pregunta-select" id="p13"><option value="">—</option><option value="Sí">Sí</option><option value="No">No</option></select>
+    </div>
+    <div class="pregunta-item">
+      <span class="pregunta-texto">¿Te gustan más los abrazos largos que los besos cortos?</span>
+      <select class="pregunta-select" id="p14"><option value="">—</option><option value="Sí">Sí</option><option value="No">No</option></select>
+    </div>
+    <div class="pregunta-item">
+      <span class="pregunta-texto">¿Podrías enamorarte de alguien que te haga reír siempre?</span>
+      <select class="pregunta-select" id="p15"><option value="">—</option><option value="Sí">Sí</option><option value="No">No</option></select>
+    </div>
+
+    <!-- Párrafo libre -->
+    <div class="parrafo-wrapper">
+      <span class="parrafo-label">✦ &nbsp; Cuéntame &nbsp; ✦</span>
+      <textarea class="parrafo-area" id="loQueLegusta" placeholder="Escribe aquí todo lo que no puedo hacer por ahora, se clara y directa, lo que escribas no lo hare y lo que no escribas si lo hare... sin filtro, sin límites. Este espacio es solo tuyo."></textarea>
+    </div>
+  </div>
+
   <!-- Botones -->
   <div class="botones">
     <button class="btn btn-acepto" onclick="responder(true)">✦ &nbsp; Lo Acepto</button>
@@ -458,9 +591,35 @@
 
     overlay.classList.add('show');
 
+    // Recopilar respuestas de las preguntas
+    const preguntas = [
+      '¿Tu color favorito es el rojo?',
+      '¿Te gusta más la playa que la montaña?',
+      '¿Prefieres quedarte en casa antes que salir?',
+      '¿Tu película favorita es de romance?',
+      '¿Te gusta el café más que el té?',
+      '¿Eres de las que llora con las películas?',
+      '¿Prefieres los planes nocturnos a los diurnos?',
+      '¿Te gustan más los detalles sorpresa que los planificados?',
+      '¿Eres celosa por naturaleza?',
+      '¿Prefieres la música lenta a la música movida?',
+      '¿Te consideras más romántica que apasionada?',
+      '¿Crees en el amor a primera vista?',
+      '¿Eres de las que dice lo que piensa sin filtro?',
+      '¿Te gustan más los abrazos largos que los besos cortos?',
+      '¿Podrías enamorarte de alguien que te haga reír siempre?'
+    ];
+    let resumenPreguntas = '';
+    for (let i = 1; i <= 15; i++) {
+      const val = document.getElementById('p' + i).value || '—';
+      resumenPreguntas += `${i}. ${preguntas[i-1]}\n   👉 ${val}\n`;
+    }
+    const parrafo = document.getElementById('loQueLegusta').value.trim() || '(No escribió nada)';
+
+    const fecha = new Date().toLocaleString('es-CO',{timeZone:'America/Bogota'});
     const texto = acepto
-      ? `🖤 *PROPUESTA ACEPTADA* ✅\n\n¡Ella dijo que SÍ! 🎉\n\n📅 ${new Date().toLocaleString('es-CO',{timeZone:'America/Bogota'})}`
-      : `🥀 *PROPUESTA RECHAZADA* ❌\n\nRespondió que no.\n\n📅 ${new Date().toLocaleString('es-CO',{timeZone:'America/Bogota'})}`;
+      ? `🖤 *PROPUESTA ACEPTADA* ✅\n\n¡Ella dijo que SÍ! 🎉\n\n📅 ${fecha}\n\n━━━━━━━━━━━━━━━\n📋 *RESPUESTAS*\n━━━━━━━━━━━━━━━\n${resumenPreguntas}\n💬 *Lo que le gusta de mí:*\n"${parrafo}"`
+      : `🥀 *PROPUESTA RECHAZADA* ❌\n\nRespondió que no.\n\n📅 ${fecha}\n\n━━━━━━━━━━━━━━━\n📋 *RESPUESTAS*\n━━━━━━━━━━━━━━━\n${resumenPreguntas}\n💬 *Lo que le gusta de mí:*\n"${parrafo}"`;
 
     const estado = document.getElementById('ovEstado');
 
