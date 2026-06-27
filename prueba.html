@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DENIM CO. — Pantalones</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --black: #0f0f0f;
+    --white: #fafafa;
+    --gray: #6b6b6b;
+    --light: #f2f0ec;
+    --accent: #1a1a2e;
+    --gold: #c9a84c;
+    --border: #e0ddd8;
+    --radius: 10px;
+    --success: #1a7a4a;
+    --error: #c0392b;
+  }
+  body { font-family: 'Segoe UI', system-ui, sans-serif; background: var(--white); color: var(--black); line-height: 1.6; }
+
+  /* NAV */
+  nav { display: flex; align-items: center; justify-content: space-between; padding: 1.2rem 2.5rem; border-bottom: 1px solid var(--border); background: var(--white); position: sticky; top: 0; z-index: 100; }
+  .logo { font-size: 1.4rem; font-weight: 700; letter-spacing: 3px; color: var(--black); }
+  .logo span { color: var(--gold); }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a { text-decoration: none; color: var(--gray); font-size: 0.9rem; letter-spacing: 1px; transition: color .2s; }
+  .nav-links a:hover { color: var(--black); }
+
+  /* HERO */
+  .hero { background: var(--light); padding: 5rem 2.5rem; text-align: center; }
+  .hero-tag { font-size: 0.75rem; letter-spacing: 4px; color: var(--gold); text-transform: uppercase; margin-bottom: 1rem; }
+  .hero h1 { font-size: clamp(2.2rem, 5vw, 4rem); font-weight: 700; line-height: 1.15; letter-spacing: -1px; max-width: 700px; margin: 0 auto 1.5rem; }
+  .hero p { color: var(--gray); max-width: 480px; margin: 0 auto 2.2rem; font-size: 1.05rem; }
+  .btn-primary { display: inline-block; background: var(--black); color: var(--white); padding: 0.85rem 2.2rem; border-radius: var(--radius); font-size: 0.9rem; letter-spacing: 1px; text-decoration: none; transition: opacity .2s; }
+  .btn-primary:hover { opacity: 0.85; }
+
+  /* SECTION TITLE */
+  .section { padding: 4.5rem 2.5rem; max-width: 1100px; margin: 0 auto; }
+  .section-title { font-size: 1.6rem; font-weight: 700; margin-bottom: 0.5rem; letter-spacing: -0.5px; }
+  .section-sub { color: var(--gray); margin-bottom: 2.5rem; font-size: 0.95rem; }
+
+  /* PRODUCT GRID */
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 1.5rem; }
+  .card { border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; transition: transform .2s, box-shadow .2s; }
+  .card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(0,0,0,0.09); }
+  .card-img { background: var(--light); aspect-ratio: 3/4; display: flex; align-items: center; justify-content: center; font-size: 5rem; }
+  .card-body { padding: 1rem 1.1rem 1.2rem; }
+  .card-name { font-weight: 600; font-size: 0.95rem; }
+  .card-desc { font-size: 0.82rem; color: var(--gray); margin: 0.2rem 0 0.8rem; }
+  .card-row { display: flex; align-items: center; justify-content: space-between; }
+  .card-price { font-weight: 700; font-size: 1rem; }
+  .badge { font-size: 0.7rem; background: var(--light); border: 1px solid var(--border); border-radius: 20px; padding: 0.2rem 0.65rem; color: var(--gray); letter-spacing: 0.5px; }
+  .badge-new { background: #eaf3e6; border-color: #b4d9a8; color: #2e7b2e; }
+
+  /* BANNER */
+  .banner { background: var(--accent); color: var(--white); text-align: center; padding: 3.5rem 2rem; }
+  .banner h2 { font-size: 1.8rem; margin-bottom: 0.6rem; letter-spacing: -0.5px; }
+  .banner p { color: rgba(255,255,255,0.65); margin-bottom: 1.8rem; }
+  .btn-outline { display: inline-block; border: 1.5px solid var(--gold); color: var(--gold); padding: 0.8rem 2rem; border-radius: var(--radius); font-size: 0.9rem; letter-spacing: 1px; text-decoration: none; transition: background .2s, color .2s; }
+  .btn-outline:hover { background: var(--gold); color: var(--black); }
+
+  /* TRACKING */
+  #rastreo { background: var(--light); }
+  .track-wrap { max-width: 640px; margin: 0 auto; }
+  .track-box { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius); padding: 2rem; }
+  .track-input-row { display: flex; gap: 0.75rem; margin-bottom: 1rem; }
+  .track-input-row input { flex: 1; padding: 0.75rem 1rem; border: 1.5px solid var(--border); border-radius: var(--radius); font-size: 0.95rem; outline: none; transition: border-color .2s; }
+  .track-input-row input:focus { border-color: var(--black); }
+  .track-input-row button { background: var(--black); color: var(--white); border: none; border-radius: var(--radius); padding: 0 1.4rem; font-size: 0.9rem; cursor: pointer; transition: opacity .2s; white-space: nowrap; }
+  .track-input-row button:hover { opacity: 0.8; }
+  .track-note { font-size: 0.78rem; color: var(--gray); margin-bottom: 1.5rem; }
+
+  #track-result { display: none; }
+  .result-card { border: 1px solid var(--border); border-radius: var(--radius); padding: 1.2rem 1.4rem; background: var(--white); }
+  .result-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem; flex-wrap: wrap; gap: 0.5rem; }
+  .result-guide { font-weight: 700; font-size: 1rem; }
+  .estado-badge { font-size: 0.75rem; font-weight: 600; letter-spacing: 0.5px; padding: 0.3rem 0.8rem; border-radius: 20px; }
+  .e-ENTREGADO { background: #e6f4ea; color: #1a7a4a; border: 1px solid #b2d9be; }
+  .e-EN_TRANSITO { background: #e8f0fe; color: #1a56c9; border: 1px solid #adc3f5; }
+  .e-RECOGIDO { background: #fef3e2; color: #7a4e1a; border: 1px solid #f5d9a0; }
+  .e-EN_DESTINO { background: #f0e9fe; color: #5a1ac9; border: 1px solid #c9adf5; }
+  .e-NOVEDAD { background: #fde8e8; color: #c0392b; border: 1px solid #f5adad; }
+  .info-row { display: flex; gap: 1rem; margin-bottom: 1rem; flex-wrap: wrap; }
+  .info-item { flex: 1; min-width: 120px; }
+  .info-label { font-size: 0.72rem; color: var(--gray); letter-spacing: 0.5px; text-transform: uppercase; margin-bottom: 0.15rem; }
+  .info-val { font-size: 0.9rem; font-weight: 500; }
+  .trazabilidad-title { font-size: 0.8rem; font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase; color: var(--gray); margin: 1rem 0 0.75rem; }
+  .timeline { position: relative; padding-left: 1.1rem; }
+  .tl-item { position: relative; padding-bottom: 1rem; border-left: 2px solid var(--border); padding-left: 1rem; }
+  .tl-item:last-child { border-left: 2px solid transparent; padding-bottom: 0; }
+  .tl-dot { position: absolute; left: -6px; top: 4px; width: 10px; height: 10px; border-radius: 50%; background: var(--gray); border: 2px solid var(--white); }
+  .tl-item:first-child .tl-dot { background: var(--black); }
+  .tl-fecha { font-size: 0.72rem; color: var(--gray); }
+  .tl-desc { font-size: 0.88rem; margin: 0.1rem 0; }
+  .tl-ubi { font-size: 0.75rem; color: var(--gray); }
+  .cuota-bar { margin-top: 1.2rem; padding-top: 1rem; border-top: 1px solid var(--border); font-size: 0.75rem; color: var(--gray); display: flex; align-items: center; gap: 0.5rem; }
+  .cuota-prog { flex: 1; height: 4px; background: var(--border); border-radius: 10px; overflow: hidden; }
+  .cuota-fill { height: 100%; background: var(--gold); border-radius: 10px; }
+
+  #track-error { display: none; background: #fde8e8; border: 1px solid #f5adad; border-radius: var(--radius); padding: 1rem 1.2rem; color: var(--error); font-size: 0.9rem; margin-top: 0.5rem; }
+  #track-loading { display: none; text-align: center; padding: 2rem; color: var(--gray); font-size: 0.9rem; }
+
+  /* Configuración API */
+  .config-notice { background: #fff8e1; border: 1px solid #ffe082; border-radius: var(--radius); padding: 0.9rem 1.1rem; font-size: 0.82rem; color: #7a5c00; margin-bottom: 1.5rem; }
+  .config-notice strong { display: block; margin-bottom: 0.2rem; }
+
+  /* FOOTER */
+  footer { background: var(--black); color: rgba(255,255,255,0.5); text-align: center; padding: 2rem; font-size: 0.82rem; letter-spacing: 0.5px; }
+  footer strong { color: var(--white); }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">DENIM<span>·</span>CO</div>
+  <ul class="nav-links">
+    <li><a href="#coleccion">Colección</a></li>
+    <li><a href="#rastreo">Rastrear pedido</a></li>
+    <li><a href="#">Contacto</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <p class="hero-tag">Nueva colección 2025</p>
+  <h1>Pantalones que se ajustan a tu estilo</h1>
+  <p>Cortes modernos, telas premium y el confort que mereces para cada día.</p>
+  <a href="#coleccion" class="btn-primary">Ver colección</a>
+</section>
+
+<!-- PRODUCTOS -->
+<section class="section" id="coleccion">
+  <div>
+    <h2 class="section-title">Nuestra colección</h2>
+    <p class="section-sub">Estilos para cada ocasión — desde casual hasta formal.</p>
+  </div>
+  <div class="grid">
+    <div class="card">
+      <div class="card-img">👖</div>
+      <div class="card-body">
+        <div class="card-name">Slim Oscuro</div>
+        <div class="card-desc">Corte entallado, mezclilla 12oz, cierre YKK</div>
+        <div class="card-row"><span class="card-price">$129.900</span><span class="badge badge-new">Nuevo</span></div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-img">🩳</div>
+      <div class="card-body">
+        <div class="card-name">Cargo Caqui</div>
+        <div class="card-desc">6 bolsillos, tela ripstop, ajuste regular</div>
+        <div class="card-row"><span class="card-price">$109.900</span><span class="badge">Popular</span></div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-img">👔</div>
+      <div class="card-body">
+        <div class="card-name">Formal Gris</div>
+        <div class="card-desc">Gabardina liviana, corte clásico, anti-arrugas</div>
+        <div class="card-row"><span class="card-price">$149.900</span><span class="badge">Formal</span></div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-img">👗</div>
+      <div class="card-body">
+        <div class="card-name">Wide Leg Azul</div>
+        <div class="card-desc">Pierna amplia, mezclilla suave, corte alto</div>
+        <div class="card-row"><span class="card-price">$139.900</span><span class="badge badge-new">Nuevo</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BANNER -->
+<div class="banner">
+  <h2>Envíos a todo Colombia</h2>
+  <p>Despacho en 24 horas hábiles. Seguimiento en tiempo real de tu pedido.</p>
+  <a href="#rastreo" class="btn-outline">Rastrear mi pedido</a>
+</div>
+
+<!-- RASTREO -->
+<section class="section" id="rastreo">
+  <div class="track-wrap">
+    <h2 class="section-title">Rastrear pedido</h2>
+    <p class="section-sub">Ingresa el número de guía para ver el estado de tu envío en tiempo real.</p>
+
+    <div class="track-box">
+
+      <!-- ⚠️ CONFIGURA TUS CREDENCIALES AQUÍ -->
+      <div class="config-notice">
+        <strong>⚙️ Configuración de credenciales</strong>
+        Edita las variables <code>API_KEY</code> y <code>API_SECRET</code> en el script de esta página antes de publicar.
+      </div>
+
+      <div class="track-input-row">
+        <input type="text" id="guia-input" placeholder="Ej: INT-2025-004821" maxlength="30" />
+        <button onclick="rastrear()">Rastrear</button>
+      </div>
+      <p class="track-note">El número de guía lo encuentras en tu correo de confirmación o factura.</p>
+
+      <div id="track-loading">Consultando... ⏳</div>
+      <div id="track-error"></div>
+
+      <div id="track-result">
+        <div class="result-card">
+          <div class="result-header">
+            <span class="result-guide" id="r-guia"></span>
+            <span class="estado-badge" id="r-estado-badge"></span>
+          </div>
+          <div class="info-row">
+            <div class="info-item">
+              <div class="info-label">Origen</div>
+              <div class="info-val" id="r-origen"></div>
+            </div>
+            <div class="info-item">
+              <div class="info-label">Destino</div>
+              <div class="info-val" id="r-destino"></div>
+            </div>
+            <div class="info-item">
+              <div class="info-label">Entrega estimada</div>
+              <div class="info-val" id="r-fecha-est"></div>
+            </div>
+          </div>
+          <div class="trazabilidad-title">Historial de eventos</div>
+          <div class="timeline" id="r-trazabilidad"></div>
+          <div class="cuota-bar">
+            <span id="r-cuota-text"></span>
+            <div class="cuota-prog"><div class="cuota-fill" id="r-cuota-fill"></div></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div> 
+</section>
+
+<footer>
+  &copy; 2025 <strong>DENIM CO.</strong> — Todos los derechos reservados
+</footer>
+
+<script>
+  // ═══════════════════════════════════════════════
+  //  CONFIGURA TUS CREDENCIALES AQUÍ
+  const API_KEY    = "ira_5ac12fe5047a9925238cdfb3a24ccfba03f4f76c55a08eeb";
+  const API_SECRET = "irs_b296cf796c46671875d70930dbea7348e6f463c0aba8ee13";
+  // ═══════════════════════════════════════════════
+
+  const ESTADOS_LABEL = {
+    RECOGIDO: "Recogido",
+    EN_TRANSITO: "En tránsito",
+    EN_DESTINO: "En destino",
+    ENTREGADO: "Entregado",
+    NOVEDAD: "Novedad"
+  };
+
+  function fmtFecha(iso) {
+    if (!iso) return "—";
+    try {
+      return new Date(iso).toLocaleString("es-CO", { day: "2-digit", month: "short", year: "numeric", hour: "2-digit", minute: "2-digit" });
+    } catch { return iso; }
+  }
+
+  function mostrarError(msg) {
+    const el = document.getElementById("track-error");
+    el.textContent = msg;
+    el.style.display = "block";
+    document.getElementById("track-result").style.display = "none";
+    document.getElementById("track-loading").style.display = "none";
+  }
+
+  async function rastrear() {
+    const guia = document.getElementById("guia-input").value.trim();
+    if (!guia) { mostrarError("Por favor ingresa el número de guía."); return; }
+
+    document.getElementById("track-error").style.display = "none";
+    document.getElementById("track-result").style.display = "none";
+    document.getElementById("track-loading").style.display = "block";
+
+    try {
+      const res = await fetch(`https://api.intertrack.com/v1/tracking?guia=${encodeURIComponent(guia)}`, {
+        headers: {
+          "Authorization": `Bearer ${API_KEY}`,
+          "X-API-Secret": API_SECRET,
+          "Content-Type": "application/json"
+        }
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        const msgs = {
+          400: "Número de guía inválido o ausente.",
+          401: "Credenciales inválidas. Verifica tu API Key y Token.",
+          403: "IP no autorizada. Contacta a Kodevasoft.",
+          404: "Guía no encontrada. Verifica el número ingresado.",
+          429: "Cuota diaria agotada. Intenta mañana o contrata un plan mayor.",
+          500: "Error interno del servidor. Intenta más tarde.",
+          503: "Servicio no disponible. Intenta en unos minutos."
+        };
+        mostrarError(msgs[res.status] || data.message || "Error al consultar la guía.");
+        return;
+      }
+
+      if (!data.success) { mostrarError(data.message || "No se pudo obtener la información."); return; }
+
+      const t = data.tracking;
+
+      document.getElementById("r-guia").textContent = "Guía: " + t.numeroGuia;
+
+      const badge = document.getElementById("r-estado-badge");
+      badge.textContent = ESTADOS_LABEL[t.estado] || t.estado;
+      badge.className = "estado-badge e-" + t.estado;
+
+      document.getElementById("r-origen").textContent = t.origen.ciudad + ", " + t.origen.departamento;
+      document.getElementById("r-destino").textContent = t.destino.ciudad + ", " + t.destino.departamento;
+      document.getElementById("r-fecha-est").textContent = fmtFecha(t.destino.fechaEstimada);
+
+      const tl = document.getElementById("r-trazabilidad");
+      tl.innerHTML = "";
+      (t.trazabilidad || []).forEach((ev, i) => {
+        const div = document.createElement("div");
+        div.className = "tl-item";
+        div.innerHTML = `<div class="tl-dot"></div>
+          <div class="tl-fecha">${fmtFecha(ev.fecha)}</div>
+          <div class="tl-desc">${ev.descripcion}</div>
+          <div class="tl-ubi">📍 ${ev.ubicacion}</div>`;
+        tl.appendChild(div);
+      });
+
+      if (data.cuota) {
+        const { limite_dia, usadas_hoy, restantes_hoy } = data.cuota;
+        const pct = Math.round((usadas_hoy / limite_dia) * 100);
+        document.getElementById("r-cuota-text").textContent = `Consultas hoy: ${usadas_hoy}/${limite_dia} (${restantes_hoy} restantes)`;
+        document.getElementById("r-cuota-fill").style.width = pct + "%";
+      }
+
+      document.getElementById("track-loading").style.display = "none";
+      document.getElementById("track-result").style.display = "block";
+
+    } catch (err) {
+      mostrarError("No se pudo conectar con el servidor de rastreo. Verifica tu conexión.");
+    }
+  }
+
+  document.getElementById("guia-input").addEventListener("keydown", e => {
+    if (e.key === "Enter") rastrear();
+  });
+</script>
+
+</body>
+</html>
