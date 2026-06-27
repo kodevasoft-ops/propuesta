@@ -240,35 +240,9 @@
 </footer>
 
 <script>
-  // ═══════════════════════════════════════════════
-  //  CONFIGURA TUS CREDENCIALES AQUÍ
- const API_BASE = 'https://interlasamericas.kodevasoft.space';
+  const API_BASE   = 'https://interlasamericas.kodevasoft.space';
   const API_KEY    = "ira_5580ec17777e39dd3dc4c24554267f29fb60e03bcbd63338";
   const API_SECRET = "irs_e2badc04b4db12927c7d178157e71f2323119c64d40e750d";
-  // ═══════════════════════════════════════════════
-
-  const ESTADOS_LABEL = {
-    RECOGIDO: "Recogido",
-    EN_TRANSITO: "En tránsito",
-    EN_DESTINO: "En destino",
-    ENTREGADO: "Entregado",
-    NOVEDAD: "Novedad"
-  };
-
-  function fmtFecha(iso) {
-    if (!iso) return "—";
-    try {
-      return new Date(iso).toLocaleString("es-CO", { day: "2-digit", month: "short", year: "numeric", hour: "2-digit", minute: "2-digit" });
-    } catch { return iso; }
-  }
-
-  function mostrarError(msg) {
-    const el = document.getElementById("track-error");
-    el.textContent = msg;
-    el.style.display = "block";
-    document.getElementById("track-result").style.display = "none";
-    document.getElementById("track-loading").style.display = "none";
-  }
 
   async function rastrear() {
     const guia = document.getElementById("guia-input").value.trim();
@@ -278,83 +252,40 @@
     document.getElementById("track-result").style.display = "none";
     document.getElementById("track-loading").style.display = "block";
 
-try {
-  const res = await fetch(`https://interlasamericas.kodevasoft.space/api/op/envios?guia=${encodeURIComponent(guia)}`, {
-    headers: {
-      "Authorization": `Bearer ${API_KEY}`,
-      "X-API-Secret": API_SECRET,
-      "Content-Type": "application/json"
-    }
-  });
-
-  const data = await res.json();
-  console.log(data);
-} catch (err) {
-  console.error("Error consultando guía:", err);
-}
-
+    try {
+      const res = await fetch(`${API_BASE}/api/op/envios?guia=${encodeURIComponent(guia)}`, {
+        headers: {
+          "Authorization": `Bearer ${API_KEY}`,
+          "X-API-Secret": API_SECRET,
+          "Content-Type": "application/json"
+        }
+      });
 
       const data = await res.json();
 
       if (!res.ok) {
-        const msgs = {
-          400: "Número de guía inválido o ausente.",
-          401: "Credenciales inválidas. Verifica tu API Key y Token.",
-          403: "IP no autorizada. Contacta a Kodevasoft.",
-          404: "Guía no encontrada. Verifica el número ingresado.",
-          429: "Cuota diaria agotada. Intenta mañana o contrata un plan mayor.",
-          500: "Error interno del servidor. Intenta más tarde.",
-          503: "Servicio no disponible. Intenta en unos minutos."
-        };
-        mostrarError(msgs[res.status] || data.message || "Error al consultar la guía.");
+        mostrarError(data.message || "Error al consultar la guía.");
         return;
       }
 
-      if (!data.success) { mostrarError(data.message || "No se pudo obtener la información."); return; }
-
-      const t = data.tracking;
-
-      document.getElementById("r-guia").textContent = "Guía: " + t.numeroGuia;
-
-      const badge = document.getElementById("r-estado-badge");
-      badge.textContent = ESTADOS_LABEL[t.estado] || t.estado;
-      badge.className = "estado-badge e-" + t.estado;
-
-      document.getElementById("r-origen").textContent = t.origen.ciudad + ", " + t.origen.departamento;
-      document.getElementById("r-destino").textContent = t.destino.ciudad + ", " + t.destino.departamento;
-      document.getElementById("r-fecha-est").textContent = fmtFecha(t.destino.fechaEstimada);
-
-      const tl = document.getElementById("r-trazabilidad");
-      tl.innerHTML = "";
-      (t.trazabilidad || []).forEach((ev, i) => {
-        const div = document.createElement("div");
-        div.className = "tl-item";
-        div.innerHTML = `<div class="tl-dot"></div>
-          <div class="tl-fecha">${fmtFecha(ev.fecha)}</div>
-          <div class="tl-desc">${ev.descripcion}</div>
-          <div class="tl-ubi">📍 ${ev.ubicacion}</div>`;
-        tl.appendChild(div);
-      });
-
-      if (data.cuota) {
-        const { limite_dia, usadas_hoy, restantes_hoy } = data.cuota;
-        const pct = Math.round((usadas_hoy / limite_dia) * 100);
-        document.getElementById("r-cuota-text").textContent = `Consultas hoy: ${usadas_hoy}/${limite_dia} (${restantes_hoy} restantes)`;
-        document.getElementById("r-cuota-fill").style.width = pct + "%";
+      if (!data.success) {
+        mostrarError(data.message || "No se pudo obtener la información.");
+        return;
       }
+
+      // aquí procesas data.tracking como ya lo tenías...
+      console.log("Tracking:", data.tracking);
 
       document.getElementById("track-loading").style.display = "none";
       document.getElementById("track-result").style.display = "block";
 
     } catch (err) {
       mostrarError("No se pudo conectar con el servidor de rastreo. Verifica tu conexión.");
+      console.error(err);
     }
   }
-
-  document.getElementById("guia-input").addEventListener("keydown", e => {
-    if (e.key === "Enter") rastrear();
-  });
 </script>
+
 
 </body>
 </html>
