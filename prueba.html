@@ -278,14 +278,21 @@
     document.getElementById("track-result").style.display = "none";
     document.getElementById("track-loading").style.display = "block";
 
-    try {
-      const res = await fetch(`https://api.intertrack.com/v1/tracking?guia=${encodeURIComponent(guia)}`, {
-        headers: {
-          "Authorization": `Bearer ${API_KEY}`,
-          "X-API-Secret": API_SECRET,
-          "Content-Type": "application/json"
-        }
-      });
+try {
+  const res = await fetch(`https://interlasamericas.kodevasoft.space/api/op/envios?guia=${encodeURIComponent(guia)}`, {
+    headers: {
+      "Authorization": `Bearer ${API_KEY}`,
+      "X-API-Secret": API_SECRET,
+      "Content-Type": "application/json"
+    }
+  });
+
+  const data = await res.json();
+  console.log(data);
+} catch (err) {
+  console.error("Error consultando guía:", err);
+}
+
 
       const data = await res.json();
 
