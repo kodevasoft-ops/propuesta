@@ -261,7 +261,11 @@
   }
 });
 
-
+function mostrarError(msg) {
+  const el = document.getElementById("track-error");
+  el.textContent = msg;
+  el.style.display = "block";
+}
       const data = await res.json();
 
       if (!res.ok) {
