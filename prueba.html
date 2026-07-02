@@ -240,9 +240,30 @@
 </footer>
 
 <script>
+  // ⚠️ Antes de publicar: reemplaza esta URL por la de tu dominio final (Cloudflare)
+  //    y verifica que el proceso Node detrás de ese túnel esté actualizado.
   const API_BASE = 'https://xllc028b-5000.use2.devtunnels.ms';
   const API_KEY    = "ira_5ac12fe5047a9925238cdfb3a24ccfba03f4f76c55a08eeb";
   const API_SECRET = "irs_b296cf796c46671875d70930dbea7348e6f463c0aba8ee13";
+
+  function mostrarError(msg) {
+    const el = document.getElementById("track-error");
+    el.textContent = msg;
+    el.style.display = "block";
+    document.getElementById("track-loading").style.display = "none";
+  }
+
+  // Mapea la categoría que manda el backend (entregado, en_transito, en_proceso, novedad...)
+  // a las clases CSS que ya existen en el <style> (e-ENTREGADO, e-EN_TRANSITO, etc.)
+  function claseEstado(categoria) {
+    const mapa = {
+      entregado:   'e-ENTREGADO',
+      en_transito: 'e-EN_TRANSITO',
+      en_proceso:  'e-RECOGIDO',
+      novedad:     'e-NOVEDAD',
+    };
+    return mapa[categoria] || 'e-EN_DESTINO';
+  }
 
   async function rastrear() {
     const guia = document.getElementById("guia-input").value.trim();
@@ -254,32 +275,62 @@
 
     try {
       const res = await fetch(`${API_BASE}/api/ext/rastrear/${encodeURIComponent(guia)}`, {
-  headers: {
-    "Authorization": `Bearer ${API_KEY}`,
-    "X-API-Secret": API_SECRET,
-    "Content-Type": "application/json"
-  }
-});
+        headers: {
+          "Authorization": `Bearer ${API_KEY}`,
+          "X-API-Secret": API_SECRET,
+          "Content-Type": "application/json",
+        },
+      });
 
-function mostrarError(msg) {
-  const el = document.getElementById("track-error");
-  el.textContent = msg;
-  el.style.display = "block";
-}
       const data = await res.json();
 
+      // El backend manda "mensaje" (no "message") en sus errores — ver auth.js / apiExterna.js
       if (!res.ok) {
-        mostrarError(data.message || "Error al consultar la guía.");
+        mostrarError(data.mensaje || data.error || "Error al consultar la guía.");
         return;
       }
 
-      if (!data.success) {
-        mostrarError(data.message || "No se pudo obtener la información.");
+      if (!data.encontrada) {
+        mostrarError(data.mensaje || "No encontramos un envío con ese número de guía.");
         return;
       }
 
-      // aquí procesas data.tracking como ya lo tenías...
-      console.log("Tracking:", data.tracking);
+      console.log("Tracking:", data);
+
+      // ── Cabecera: guía + estado actual ──────────────────────────
+      document.getElementById("r-guia").textContent = data.guia;
+
+      const badge = document.getElementById("r-estado-badge");
+      badge.textContent = data.estado?.texto || data.envio.estado_actual || '';
+      badge.className   = "estado-badge " + claseEstado(data.estado?.categoria);
+
+      // ── Datos del envío ──────────────────────────────────────────
+      document.getElementById("r-origen").textContent    = data.envio.origen;
+      document.getElementById("r-destino").textContent   = data.envio.destino;
+      document.getElementById("r-fecha-est").textContent = data.envio.fecha_estimada_entrega || 'Por confirmar';
+
+      // ── Línea de tiempo / historial ───────────────────────────────
+      const tl = document.getElementById("r-trazabilidad");
+      if (Array.isArray(data.historial) && data.historial.length) {
+        tl.innerHTML = data.historial.slice().reverse().map(h => `
+          <div class="tl-item">
+            <div class="tl-dot"></div>
+            <div class="tl-fecha">${h.fecha_cambio}</div>
+            <div class="tl-desc">${h.estado_info?.icono || ''} ${h.estado_info?.titulo || h.descripcion_estado}</div>
+            <div class="tl-ubi">${h.ciudad || ''}</div>
+          </div>
+        `).join('');
+      } else {
+        tl.innerHTML = '<p class="tl-ubi">Aún no hay eventos registrados para esta guía.</p>';
+      }
+
+      // ── Cuota diaria de la API ───────────────────────────────────
+      if (data.cuota) {
+        const pct = Math.min(100, (data.cuota.usadas_hoy / data.cuota.limite_dia) * 100);
+        document.getElementById("r-cuota-text").textContent =
+          `${data.cuota.usadas_hoy}/${data.cuota.limite_dia} consultas usadas hoy`;
+        document.getElementById("r-cuota-fill").style.width = `${pct}%`;
+      }
 
       document.getElementById("track-loading").style.display = "none";
       document.getElementById("track-result").style.display = "block";
