@@ -222,6 +222,44 @@
               <div class="info-val" id="r-fecha-est"></div>
             </div>
           </div>
+          <div class="trazabilidad-title">Remitente</div>
+          <div class="info-row">
+            <div class="info-item">
+              <div class="info-label">Nombre</div>
+              <div class="info-val" id="r-remitente-nombre"></div>
+            </div>
+            <div class="info-item">
+              <div class="info-label">Documento</div>
+              <div class="info-val" id="r-remitente-doc"></div>
+            </div>
+            <div class="info-item">
+              <div class="info-label">Teléfono</div>
+              <div class="info-val" id="r-remitente-tel"></div>
+            </div>
+          </div>
+
+          <div class="trazabilidad-title">Destinatario</div>
+          <div class="info-row">
+            <div class="info-item">
+              <div class="info-label">Nombre</div>
+              <div class="info-val" id="r-destinatario-nombre"></div>
+            </div>
+            <div class="info-item">
+              <div class="info-label">Documento</div>
+              <div class="info-val" id="r-destinatario-doc"></div>
+            </div>
+            <div class="info-item">
+              <div class="info-label">Teléfono</div>
+              <div class="info-val" id="r-destinatario-tel"></div>
+            </div>
+          </div>
+          <div class="info-row">
+            <div class="info-item">
+              <div class="info-label">Entrega</div>
+              <div class="info-val" id="r-destinatario-entrega"></div>
+            </div>
+          </div>
+
           <div class="trazabilidad-title">Historial de eventos</div>
           <div class="timeline" id="r-trazabilidad"></div>
           <div class="cuota-bar">
@@ -308,6 +346,26 @@
       document.getElementById("r-origen").textContent    = data.envio.origen;
       document.getElementById("r-destino").textContent   = data.envio.destino;
       document.getElementById("r-fecha-est").textContent = data.envio.fecha_estimada_entrega || 'Por confirmar';
+
+      // ── Remitente ──────────────────────────────────────────────
+      if (data.remitente) {
+        document.getElementById("r-remitente-nombre").textContent = data.remitente.nombre || '—';
+        document.getElementById("r-remitente-doc").textContent =
+          `${data.remitente.tipo_documento || ''} ${data.remitente.numero_documento || ''}`.trim() || '—';
+        document.getElementById("r-remitente-tel").textContent = data.remitente.telefono || '—';
+      }
+
+      // ── Destinatario ───────────────────────────────────────────
+      if (data.destinatario) {
+        document.getElementById("r-destinatario-nombre").textContent = data.destinatario.nombre || '—';
+        document.getElementById("r-destinatario-doc").textContent =
+          `${data.destinatario.tipo_documento || ''} ${data.destinatario.numero_documento || ''}`.trim() || '—';
+        document.getElementById("r-destinatario-tel").textContent = data.destinatario.telefono || '—';
+        document.getElementById("r-destinatario-entrega").textContent =
+          data.destinatario.direccion
+            ? `${data.destinatario.tipo_entrega || ''} — ${data.destinatario.direccion}`
+            : (data.destinatario.tipo_entrega || '—');
+      }
 
       // ── Línea de tiempo / historial ───────────────────────────────
       const tl = document.getElementById("r-trazabilidad");
