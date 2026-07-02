@@ -3,644 +3,422 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Una Propuesta Para Ti</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=Raleway:wght@200;300;400;500&display=swap" rel="stylesheet">
+<title>DENIM CO. — Pantalones123</title>
 <style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   :root {
-    --negro: #080808;
-    --rojo: #7a1010;
-    --rojo-vivo: #b02020;
-    --dorado: #c8a45a;
-    --dorado-suave: #e8d5a3;
-    --crema: #f2ece0;
-    --gris-suave: rgba(242,236,224,0.55);
+    --black: #0f0f0f;
+    --white: #fafafa;
+    --gray: #6b6b6b;
+    --light: #f2f0ec;
+    --accent: #1a1a2e;
+    --gold: #c9a84c;
+    --border: #e0ddd8;
+    --radius: 10px;
+    --success: #1a7a4a;
+    --error: #c0392b;
   }
+  body { font-family: 'Segoe UI', system-ui, sans-serif; background: var(--white); color: var(--black); line-height: 1.6; }
 
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-  html { scroll-behavior: smooth; }
-
-  body {
-    background: var(--negro);
-    color: var(--crema);
-    font-family: 'Raleway', sans-serif;
-    font-weight: 300;
-    min-height: 100vh;
-    overflow-x: hidden;
-  }
-
-  body::before {
-    content: '';
-    position: fixed; inset: 0;
-    background:
-      radial-gradient(ellipse at 15% 40%, rgba(122,16,16,0.18) 0%, transparent 55%),
-      radial-gradient(ellipse at 85% 20%, rgba(200,164,90,0.07) 0%, transparent 45%),
-      radial-gradient(ellipse at 55% 85%, rgba(122,16,16,0.12) 0%, transparent 50%);
-    pointer-events: none; z-index: 0;
-  }
-
-  .luz {
-    position: fixed; top: -200px; left: 50%;
-    transform: translateX(-50%);
-    width: 600px; height: 600px;
-    background: radial-gradient(circle, rgba(200,164,90,0.06) 0%, transparent 70%);
-    border-radius: 50%;
-    animation: respirar 4s ease-in-out infinite;
-    pointer-events: none; z-index: 0;
-  }
-  @keyframes respirar {
-    0%,100% { opacity:0.6; transform:translateX(-50%) scale(1); }
-    50%      { opacity:1;   transform:translateX(-50%) scale(1.1); }
-  }
-
-  .particles { position:fixed; inset:0; pointer-events:none; z-index:0; overflow:hidden; }
-  .particle {
-    position:absolute; width:1.5px; height:1.5px;
-    background:var(--dorado); border-radius:50%; opacity:0;
-    animation: flotar var(--dur,9s) ease-in-out infinite var(--delay,0s);
-    left:var(--x,50%); top:var(--y,100%);
-  }
-  @keyframes flotar {
-    0%   { opacity:0; transform:translateY(0) scale(1); }
-    20%  { opacity:0.8; }
-    80%  { opacity:0.2; }
-    100% { opacity:0; transform:translateY(-160px) scale(0.2); }
-  }
-
-  .contenedor {
-    position:relative; z-index:1;
-    max-width:860px; margin:0 auto;
-    padding:40px 24px 100px;
-  }
+  /* NAV */
+  nav { display: flex; align-items: center; justify-content: space-between; padding: 1.2rem 2.5rem; border-bottom: 1px solid var(--border); background: var(--white); position: sticky; top: 0; z-index: 100; }
+  .logo { font-size: 1.4rem; font-weight: 700; letter-spacing: 3px; color: var(--black); }
+  .logo span { color: var(--gold); }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a { text-decoration: none; color: var(--gray); font-size: 0.9rem; letter-spacing: 1px; transition: color .2s; }
+  .nav-links a:hover { color: var(--black); }
 
   /* HERO */
-  .hero {
-    text-align:center; padding:70px 0 50px;
-    opacity:0; animation:fadeUp 1.2s ease forwards 0.2s;
-  }
-  .pre-titulo {
-    font-size:0.62rem; letter-spacing:7px; text-transform:uppercase;
-    color:var(--dorado); opacity:0.75; margin-bottom:22px; display:block;
-  }
-  .titulo-hero {
-    font-family:'Playfair Display',serif;
-    font-size:clamp(3rem,9vw,6.5rem);
-    font-weight:400; line-height:1;
-    color:var(--crema); letter-spacing:-2px;
-  }
-  .titulo-hero em { font-style:italic; color:var(--dorado); display:block; }
+  .hero { background: var(--light); padding: 5rem 2.5rem; text-align: center; }
+  .hero-tag { font-size: 0.75rem; letter-spacing: 4px; color: var(--gold); text-transform: uppercase; margin-bottom: 1rem; }
+  .hero h1 { font-size: clamp(2.2rem, 5vw, 4rem); font-weight: 700; line-height: 1.15; letter-spacing: -1px; max-width: 700px; margin: 0 auto 1.5rem; }
+  .hero p { color: var(--gray); max-width: 480px; margin: 0 auto 2.2rem; font-size: 1.05rem; }
+  .btn-primary { display: inline-block; background: var(--black); color: var(--white); padding: 0.85rem 2.2rem; border-radius: var(--radius); font-size: 0.9rem; letter-spacing: 1px; text-decoration: none; transition: opacity .2s; }
+  .btn-primary:hover { opacity: 0.85; }
 
-  .separador {
-    display:flex; align-items:center; gap:18px;
-    margin:32px auto; max-width:280px;
-  }
-  .sep-linea { flex:1; height:1px; background:linear-gradient(90deg,transparent,var(--dorado),transparent); }
-  .sep-rombo { color:var(--dorado); font-size:0.7rem; }
-  .hero-sub { font-size:0.7rem; letter-spacing:5px; text-transform:uppercase; color:var(--gris-suave); }
+  /* SECTION TITLE */
+  .section { padding: 4.5rem 2.5rem; max-width: 1100px; margin: 0 auto; }
+  .section-title { font-size: 1.6rem; font-weight: 700; margin-bottom: 0.5rem; letter-spacing: -0.5px; }
+  .section-sub { color: var(--gray); margin-bottom: 2.5rem; font-size: 0.95rem; }
 
-  /* INTRO */
-  .intro {
-    font-family:'Playfair Display',serif;
-    font-size:clamp(1.15rem,3vw,1.5rem);
-    font-style:italic; line-height:1.95;
-    text-align:center; color:var(--crema);
-    max-width:640px; margin:0 auto 70px;
-    opacity:0; animation:fadeUp 1.2s ease forwards 0.7s;
-  }
-  .intro span { color:var(--dorado); font-style:normal; }
+  /* PRODUCT GRID */
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 1.5rem; }
+  .card { border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; transition: transform .2s, box-shadow .2s; }
+  .card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(0,0,0,0.09); }
+  .card-img { background: var(--light); aspect-ratio: 3/4; display: flex; align-items: center; justify-content: center; font-size: 5rem; }
+  .card-body { padding: 1rem 1.1rem 1.2rem; }
+  .card-name { font-weight: 600; font-size: 0.95rem; }
+  .card-desc { font-size: 0.82rem; color: var(--gray); margin: 0.2rem 0 0.8rem; }
+  .card-row { display: flex; align-items: center; justify-content: space-between; }
+  .card-price { font-weight: 700; font-size: 1rem; }
+  .badge { font-size: 0.7rem; background: var(--light); border: 1px solid var(--border); border-radius: 20px; padding: 0.2rem 0.65rem; color: var(--gray); letter-spacing: 0.5px; }
+  .badge-new { background: #eaf3e6; border-color: #b4d9a8; color: #2e7b2e; }
 
-  /* SECCIONES */
-  .seccion { margin-bottom:56px; opacity:0; animation:fadeUp 0.9s ease forwards; }
-  .seccion:nth-of-type(1){animation-delay:1.1s}
-  .seccion:nth-of-type(2){animation-delay:1.3s}
-  .seccion:nth-of-type(3){animation-delay:1.5s}
-  .seccion:nth-of-type(4){animation-delay:1.7s}
+  /* BANNER */
+  .banner { background: var(--accent); color: var(--white); text-align: center; padding: 3.5rem 2rem; }
+  .banner h2 { font-size: 1.8rem; margin-bottom: 0.6rem; letter-spacing: -0.5px; }
+  .banner p { color: rgba(255,255,255,0.65); margin-bottom: 1.8rem; }
+  .btn-outline { display: inline-block; border: 1.5px solid var(--gold); color: var(--gold); padding: 0.8rem 2rem; border-radius: var(--radius); font-size: 0.9rem; letter-spacing: 1px; text-decoration: none; transition: background .2s, color .2s; }
+  .btn-outline:hover { background: var(--gold); color: var(--black); }
 
-  .sec-header { display:flex; align-items:center; gap:16px; margin-bottom:26px; }
-  .sec-num {
-    font-family:'Playfair Display',serif; font-size:2.2rem;
-    font-style:italic; color:rgba(200,164,90,0.2); line-height:1; min-width:36px;
-  }
-  .sec-titulo { font-size:0.62rem; letter-spacing:5px; text-transform:uppercase; color:var(--dorado); }
-  .sec-linea { flex:1; height:1px; background:linear-gradient(90deg,rgba(200,164,90,0.35),transparent); }
+  /* TRACKING */
+  #rastreo { background: var(--light); }
+  .track-wrap { max-width: 640px; margin: 0 auto; }
+  .track-box { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius); padding: 2rem; }
+  .track-input-row { display: flex; gap: 0.75rem; margin-bottom: 1rem; }
+  .track-input-row input { flex: 1; padding: 0.75rem 1rem; border: 1.5px solid var(--border); border-radius: var(--radius); font-size: 0.95rem; outline: none; transition: border-color .2s; }
+  .track-input-row input:focus { border-color: var(--black); }
+  .track-input-row button { background: var(--black); color: var(--white); border: none; border-radius: var(--radius); padding: 0 1.4rem; font-size: 0.9rem; cursor: pointer; transition: opacity .2s; white-space: nowrap; }
+  .track-input-row button:hover { opacity: 0.8; }
+  .track-note { font-size: 0.78rem; color: var(--gray); margin-bottom: 1.5rem; }
 
-  .grid { display:grid; gap:14px; }
+  #track-result { display: none; }
+  .result-card { border: 1px solid var(--border); border-radius: var(--radius); padding: 1.2rem 1.4rem; background: var(--white); }
+  .result-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem; flex-wrap: wrap; gap: 0.5rem; }
+  .result-guide { font-weight: 700; font-size: 1rem; }
+  .estado-badge { font-size: 0.75rem; font-weight: 600; letter-spacing: 0.5px; padding: 0.3rem 0.8rem; border-radius: 20px; }
+  .e-ENTREGADO { background: #e6f4ea; color: #1a7a4a; border: 1px solid #b2d9be; }
+  .e-EN_TRANSITO { background: #e8f0fe; color: #1a56c9; border: 1px solid #adc3f5; }
+  .e-RECOGIDO { background: #fef3e2; color: #7a4e1a; border: 1px solid #f5d9a0; }
+  .e-EN_DESTINO { background: #f0e9fe; color: #5a1ac9; border: 1px solid #c9adf5; }
+  .e-NOVEDAD { background: #fde8e8; color: #c0392b; border: 1px solid #f5adad; }
+  .info-row { display: flex; gap: 1rem; margin-bottom: 1rem; flex-wrap: wrap; }
+  .info-item { flex: 1; min-width: 120px; }
+  .info-label { font-size: 0.72rem; color: var(--gray); letter-spacing: 0.5px; text-transform: uppercase; margin-bottom: 0.15rem; }
+  .info-val { font-size: 0.9rem; font-weight: 500; }
+  .trazabilidad-title { font-size: 0.8rem; font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase; color: var(--gray); margin: 1rem 0 0.75rem; }
+  .timeline { position: relative; padding-left: 1.1rem; }
+  .tl-item { position: relative; padding-bottom: 1rem; border-left: 2px solid var(--border); padding-left: 1rem; }
+  .tl-item:last-child { border-left: 2px solid transparent; padding-bottom: 0; }
+  .tl-dot { position: absolute; left: -6px; top: 4px; width: 10px; height: 10px; border-radius: 50%; background: var(--gray); border: 2px solid var(--white); }
+  .tl-item:first-child .tl-dot { background: var(--black); }
+  .tl-fecha { font-size: 0.72rem; color: var(--gray); }
+  .tl-desc { font-size: 0.88rem; margin: 0.1rem 0; }
+  .tl-ubi { font-size: 0.75rem; color: var(--gray); }
+  .cuota-bar { margin-top: 1.2rem; padding-top: 1rem; border-top: 1px solid var(--border); font-size: 0.75rem; color: var(--gray); display: flex; align-items: center; gap: 0.5rem; }
+  .cuota-prog { flex: 1; height: 4px; background: var(--border); border-radius: 10px; overflow: hidden; }
+  .cuota-fill { height: 100%; background: var(--gold); border-radius: 10px; }
 
-  .card {
-    background:rgba(255,255,255,0.025);
-    border:1px solid rgba(200,164,90,0.12);
-    border-left:3px solid var(--rojo);
-    padding:24px 28px; border-radius:1px;
-    position:relative; overflow:hidden;
-    transition:all 0.35s ease;
-  }
-  .card::after {
-    content:''; position:absolute; inset:0;
-    background:linear-gradient(120deg,rgba(122,16,16,0.08),transparent 60%);
-    opacity:0; transition:opacity 0.35s;
-  }
-  .card:hover { border-left-color:var(--dorado); transform:translateX(5px); background:rgba(255,255,255,0.04); }
-  .card:hover::after { opacity:1; }
+  #track-error { display: none; background: #fde8e8; border: 1px solid #f5adad; border-radius: var(--radius); padding: 1rem 1.2rem; color: var(--error); font-size: 0.9rem; margin-top: 0.5rem; }
+  #track-loading { display: none; text-align: center; padding: 2rem; color: var(--gray); font-size: 0.9rem; }
 
-  .card-mandato { font-size:0.58rem; letter-spacing:4px; text-transform:uppercase; color:var(--rojo-vivo); margin-bottom:7px; }
-  .card-titulo { font-family:'Playfair Display',serif; font-size:1.2rem; font-weight:700; color:var(--crema); margin-bottom:8px; }
-  .card-desc { font-size:0.77rem; color:rgba(242,236,224,0.58); line-height:1.75; }
+  /* Configuración API */
+  .config-notice { background: #fff8e1; border: 1px solid #ffe082; border-radius: var(--radius); padding: 0.9rem 1.1rem; font-size: 0.82rem; color: #7a5c00; margin-bottom: 1.5rem; }
+  .config-notice strong { display: block; margin-bottom: 0.2rem; }
 
-  /* REGLA DE ORO */
-  .oro-wrapper {
-    position:relative; margin:60px 0;
-    opacity:0; animation:fadeUp 1.2s ease forwards 2s;
-  }
-  .oro-deco { text-align:center; color:var(--dorado); font-size:1rem; opacity:0.5; letter-spacing:16px; }
-  .oro-box {
-    background:linear-gradient(135deg,rgba(200,164,90,0.09),rgba(122,16,16,0.09));
-    border:1px solid rgba(200,164,90,0.35); border-radius:2px;
-    padding:44px 40px; text-align:center;
-  }
-  .oro-label { font-size:0.6rem; letter-spacing:6px; text-transform:uppercase; color:var(--dorado); margin-bottom:20px; display:block; }
-  .oro-texto {
-    font-family:'Playfair Display',serif;
-    font-size:clamp(1.2rem,3.5vw,1.7rem);
-    font-style:italic; line-height:1.65; color:var(--crema);
-  }
-  .oro-texto strong { color:var(--dorado); font-style:normal; }
-
-  /* CIERRE */
-  .cierre { text-align:center; margin-bottom:50px; opacity:0; animation:fadeUp 1s ease forwards 2.3s; }
-  .cierre-texto {
-    font-family:'Playfair Display',serif;
-    font-size:clamp(1rem,2.5vw,1.25rem);
-    font-style:italic; color:var(--gris-suave);
-    line-height:1.8; max-width:520px; margin:0 auto 14px;
-  }
-  .cierre-firma { font-size:0.62rem; letter-spacing:5px; text-transform:uppercase; color:rgba(200,164,90,0.4); }
-
-  /* BOTONES */
-  .botones {
-    display:grid; grid-template-columns:1fr 1fr; gap:18px;
-    opacity:0; animation:fadeUp 1s ease forwards 2.5s;
-  }
-  @media(max-width:480px){.botones{grid-template-columns:1fr}}
-
-  .btn {
-    padding:22px 20px; border:none; border-radius:1px;
-    font-family:'Raleway',sans-serif; font-size:0.68rem;
-    font-weight:500; letter-spacing:5px; text-transform:uppercase;
-    cursor:pointer; transition:all 0.4s ease;
-    position:relative; overflow:hidden;
-  }
-  .btn::before {
-    content:''; position:absolute; top:0; left:-100%;
-    width:100%; height:100%;
-    background:linear-gradient(90deg,transparent,rgba(255,255,255,0.08),transparent);
-    transition:left 0.5s ease;
-  }
-  .btn:hover::before { left:100%; }
-
-  .btn-acepto {
-    background:linear-gradient(135deg,var(--rojo) 0%,#4a0808 100%);
-    color:var(--crema); border:1px solid rgba(200,164,90,0.25);
-  }
-  .btn-acepto:hover {
-    background:linear-gradient(135deg,var(--rojo-vivo),var(--rojo));
-    transform:translateY(-3px);
-    box-shadow:0 16px 50px rgba(122,16,16,0.5);
-  }
-  .btn-no {
-    background:transparent; color:rgba(242,236,224,0.35);
-    border:1px solid rgba(242,236,224,0.12);
-  }
-  .btn-no:hover { border-color:rgba(242,236,224,0.25); color:rgba(242,236,224,0.55); transform:translateY(-2px); }
-
-  /* OVERLAY */
-  .overlay {
-    display:none; position:fixed; inset:0;
-    background:rgba(8,8,8,0.97); z-index:200;
-    align-items:center; justify-content:center;
-    flex-direction:column; text-align:center; padding:40px;
-    backdrop-filter:blur(16px);
-  }
-  .overlay.show { display:flex; animation:fadeUp 0.5s ease; }
-
-  .ov-icono { font-size:3.5rem; margin-bottom:28px; animation:pulsar 2s ease infinite; }
-  @keyframes pulsar { 0%,100%{transform:scale(1)} 50%{transform:scale(1.08)} }
-
-  .ov-titulo {
-    font-family:'Playfair Display',serif;
-    font-size:clamp(2.2rem,8vw,4rem);
-    font-style:italic; color:var(--dorado); margin-bottom:18px;
-  }
-  .ov-msg { font-size:0.88rem; color:rgba(242,236,224,0.55); max-width:380px; line-height:1.85; margin-bottom:14px; }
-  .ov-estado { font-size:0.62rem; letter-spacing:3px; text-transform:uppercase; color:rgba(200,164,90,0.5); min-height:18px; }
-  .ov-cerrar {
-    margin-top:28px; padding:13px 32px;
-    background:transparent; border:1px solid rgba(200,164,90,0.3);
-    color:var(--dorado); font-family:'Raleway',sans-serif;
-    font-size:0.62rem; letter-spacing:4px; text-transform:uppercase;
-    cursor:pointer; border-radius:1px; transition:all 0.3s;
-  }
-  .ov-cerrar:hover { background:rgba(200,164,90,0.08); }
-
-  @keyframes fadeUp {
-    from { opacity:0; transform:translateY(28px); }
-    to   { opacity:1; transform:translateY(0); }
-  }
-
-  .footer-final {
-    text-align:center; margin-top:70px;
-    font-family:'Playfair Display',serif; font-style:italic;
-    font-size:0.88rem; color:rgba(242,236,224,0.15); letter-spacing:1px;
-  }
-
-  /* SECCIÓN PREGUNTAS */
-  .preguntas-wrapper {
-    margin:60px 0;
-    opacity:0; animation:fadeUp 1s ease forwards 1.9s;
-  }
-  .preguntas-titulo {
-    text-align:center; margin-bottom:10px;
-  }
-  .preguntas-titulo span {
-    font-size:0.62rem; letter-spacing:6px; text-transform:uppercase; color:var(--dorado);
-  }
-  .preguntas-subtitulo {
-    text-align:center; font-family:'Playfair Display',serif; font-style:italic;
-    font-size:1.1rem; color:rgba(242,236,224,0.55); margin-bottom:32px;
-  }
-
-  .pregunta-item {
-    display:flex; align-items:center; justify-content:space-between; gap:16px;
-    background:rgba(255,255,255,0.025);
-    border:1px solid rgba(200,164,90,0.12);
-    border-left:3px solid var(--rojo);
-    padding:16px 22px; border-radius:1px; margin-bottom:12px;
-    transition:all 0.3s ease;
-  }
-  .pregunta-item:hover { border-left-color:var(--dorado); background:rgba(255,255,255,0.04); }
-  .pregunta-texto { font-size:0.82rem; color:var(--crema); line-height:1.5; flex:1; }
-  .pregunta-select {
-    background:rgba(122,16,16,0.3);
-    border:1px solid rgba(200,164,90,0.3);
-    color:var(--dorado);
-    font-family:'Raleway',sans-serif;
-    font-size:0.72rem; letter-spacing:2px;
-    padding:8px 14px; border-radius:1px; cursor:pointer;
-    outline:none; min-width:90px;
-    transition:all 0.3s;
-  }
-  .pregunta-select:focus { border-color:var(--dorado); background:rgba(122,16,16,0.5); }
-  .pregunta-select option { background:#1a0505; color:var(--crema); }
-
-  /* PÁRRAFO LIBRE */
-  .parrafo-wrapper {
-    margin:40px 0 0;
-  }
-  .parrafo-label {
-    font-size:0.62rem; letter-spacing:5px; text-transform:uppercase;
-    color:var(--dorado); display:block; margin-bottom:14px; text-align:center;
-  }
-  .parrafo-area {
-    width:100%; min-height:130px;
-    background:rgba(255,255,255,0.025);
-    border:1px solid rgba(200,164,90,0.25);
-    border-left:3px solid var(--rojo);
-    color:var(--crema); font-family:'Raleway',sans-serif;
-    font-size:0.83rem; line-height:1.75;
-    padding:20px 22px; border-radius:1px; resize:vertical; outline:none;
-    transition:border-color 0.3s;
-  }
-  .parrafo-area::placeholder { color:rgba(242,236,224,0.25); }
-  .parrafo-area:focus { border-color:var(--dorado); }
+  /* FOOTER */
+  footer { background: var(--black); color: rgba(255,255,255,0.5); text-align: center; padding: 2rem; font-size: 0.82rem; letter-spacing: 0.5px; }
+  footer strong { color: var(--white); }
 </style>
 </head>
 <body>
 
-<div class="luz"></div>
-<div class="particles" id="particles"></div>
+<nav>
+  <div class="logo">DENIM<span>·</span>CO</div>
+  <ul class="nav-links">
+    <li><a href="#coleccion">Colección</a></li>
+    <li><a href="#rastreo">Rastrear pedido</a></li>
+    <li><a href="#">Contacto</a></li>
+  </ul>
+</nav>
 
-<!-- Overlay -->
-<div class="overlay" id="overlay">
-  <div class="ov-icono" id="ovIcono"></div>
-  <div class="ov-titulo" id="ovTitulo"></div>
-  <p class="ov-msg" id="ovMsg"></p>
-  <div class="ov-estado" id="ovEstado"></div>
-  <button class="ov-cerrar" onclick="document.getElementById('overlay').classList.remove('show')">Cerrar</button>
+<!-- HERO -->
+<section class="hero">
+  <p class="hero-tag">Nueva colección 2025</p>
+  <h1>Pantalones que se ajustan a tu estilo</h1>
+  <p>Cortes modernos, telas premium y el confort que mereces para cada día.</p>
+  <a href="#coleccion" class="btn-primary">Ver colección</a>
+</section>
+
+<!-- PRODUCTOS -->
+<section class="section" id="coleccion">
+  <div>
+    <h2 class="section-title">Nuestra colección</h2>
+    <p class="section-sub">Estilos para cada ocasión — desde casual hasta formal.</p>
+  </div>
+  <div class="grid">
+    <div class="card">
+      <div class="card-img">👖</div>
+      <div class="card-body">
+        <div class="card-name">Slim Oscuro</div>
+        <div class="card-desc">Corte entallado, mezclilla 12oz, cierre YKK</div>
+        <div class="card-row"><span class="card-price">$129.900</span><span class="badge badge-new">Nuevo</span></div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-img">🩳</div>
+      <div class="card-body">
+        <div class="card-name">Cargo Caqui</div>
+        <div class="card-desc">6 bolsillos, tela ripstop, ajuste regular</div>
+        <div class="card-row"><span class="card-price">$109.900</span><span class="badge">Popular</span></div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-img">👔</div>
+      <div class="card-body">
+        <div class="card-name">Formal Gris</div>
+        <div class="card-desc">Gabardina liviana, corte clásico, anti-arrugas</div>
+        <div class="card-row"><span class="card-price">$149.900</span><span class="badge">Formal</span></div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-img">👗</div>
+      <div class="card-body">
+        <div class="card-name">Wide Leg Azul</div>
+        <div class="card-desc">Pierna amplia, mezclilla suave, corte alto</div>
+        <div class="card-row"><span class="card-price">$139.900</span><span class="badge badge-new">Nuevo</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BANNER -->
+<div class="banner">
+  <h2>Envíos a todo Colombia</h2>
+  <p>Despacho en 24 horas hábiles. Seguimiento en tiempo real de tu pedido.</p>
+  <a href="#rastreo" class="btn-outline">Rastrear mi pedido</a>
 </div>
 
-<div class="contenedor">
+<!-- RASTREO -->
+<section class="section" id="rastreo">
+  <div class="track-wrap">
+    <h2 class="section-title">Rastrear pedido</h2>
+    <p class="section-sub">Ingresa el número de guía para ver el estado de tu envío en tiempo real.</p>
 
-  <div class="hero">
-    <span class="pre-titulo">✦ &nbsp; Solo para tus ojos &nbsp; ✦</span>
-    <h1 class="titulo-hero">Lo que soy<br><em>contigo</em></h1>
-    <div class="separador">
-      <div class="sep-linea"></div>
-      <span class="sep-rombo">◆</span>
-      <div class="sep-linea"></div>
-    </div>
-    <span class="hero-sub">Intensidad · Pasión · Sin medias tintas</span>
-  </div>
+    <div class="track-box">
 
-  <p class="intro">
-    No busco algo tranquilo ni predecible.<br>
-    Busco algo que <span>lo consuma todo.</span><br>
-    Si vas a estar conmigo, va a ser de verdad —<br>
-    con fuego, con presencia, con entrega total.<br>
-    Esto es lo que ofrezco. Y lo que espero.
-  </p>
+      <!-- ⚠️ CONFIGURA TUS CREDENCIALES AQUÍ -->
+      <div class="config-notice">
+        <strong>⚙️ Configuración de credenciales</strong>
+        Edita las variables <code>API_KEY</code> y <code>API_SECRET</code> en el script de esta página antes de publicar.
+      </div>
 
-  <!-- I -->
-  <div class="seccion">
-    <div class="sec-header">
-      <span class="sec-num">I</span>
-      <span class="sec-titulo">Seducción &amp; Posesión</span>
-      <div class="sec-linea"></div>
-    </div>
-    <div class="grid">
-      <div class="card">
-        <div class="card-mandato">Mandato 01</div>
-        <div class="card-titulo">Eres mía — y yo soy tuyo</div>
-        <div class="card-desc">Exclusividad total. No en papel, en cada gesto, en cada mirada, en cada decisión. Cuando estamos juntos, el mundo exterior deja de existir para los dos.</div>
+      <div class="track-input-row">
+        <input type="text" id="guia-input" placeholder="Ej: INT-2025-004821" maxlength="30" />
+        <button onclick="rastrear()">Rastrear</button>
       </div>
-      <div class="card">
-        <div class="card-mandato">Mandato 02</div>
-        <div class="card-titulo">Mi firma en tu piel</div>
-        <div class="card-desc">Lo que dejamos el uno en el otro no se esconde ni se borra. Mis marcas, mi perfume, mi presencia — son un recordatorio constante de a quién le perteneces.</div>
-      </div>
-      <div class="card">
-        <div class="card-mandato">Mandato 03</div>
-        <div class="card-titulo">Lo íntimo es solo nuestro</div>
-        <div class="card-desc">Lo que ves frente al espejo, lo que solo yo veo — no existe para validación ajena. Esa versión tuya me pertenece a mí, y solo a mí.</div>
-      </div>
-    </div>
-  </div>
+      <p class="track-note">El número de guía lo encuentras en tu correo de confirmación o factura.</p>
 
-  <!-- II -->
-  <div class="seccion">
-    <div class="sec-header">
-      <span class="sec-num">II</span>
-      <span class="sec-titulo">Intensidad sin disculpas</span>
-      <div class="sec-linea"></div>
-    </div>
-    <div class="grid">
-      <div class="card">
-        <div class="card-mandato">Mandato 04</div>
-        <div class="card-titulo">Prioridad absoluta</div>
-        <div class="card-desc">Yo no espero. Tú no esperas. Nos ponemos el uno al otro en primer lugar — sin excusas, sin demoras innecesarias. Esa energía la sostenemos los dos.</div>
-      </div>
-      <div class="card">
-        <div class="card-mandato">Mandato 05</div>
-        <div class="card-titulo">Presencia que se siente</div>
-        <div class="card-desc">Cuando estoy contigo, estás conmigo de verdad. Tus ojos, tu atención, tu energía — para mí. En público y en privado, que no haya duda de quién ocupa tu mente.</div>
-      </div>
-      <div class="card">
-        <div class="card-mandato">Mandato 06</div>
-        <div class="card-titulo">Afecto que no se disculpa</div>
-        <div class="card-desc">No soy de medias tintas. El afecto que doy es real, físico y constante. Espero lo mismo — que lo nuestro se note, se sienta y se viva sin vergüenza.</div>
-      </div>
-    </div>
-  </div>
+      <div id="track-loading">Consultando... ⏳</div>
+      <div id="track-error"></div>
 
-  <!-- III -->
-  <div class="seccion">
-    <div class="sec-header">
-      <span class="sec-num">III</span>
-      <span class="sec-titulo">Lealtad &amp; Respeto</span>
-      <div class="sec-linea"></div>
-    </div>
-    <div class="grid">
-      <div class="card">
-        <div class="card-mandato">Mandato 07</div>
-        <div class="card-titulo">Lo que es nuestro, se cuida</div>
-        <div class="card-desc">La lealtad no se negocia. Cuando no estamos juntos, lo que somos sigue vigente. No hay "modo soltero" — estamos juntos o no estamos.</div>
+      <div id="track-result">
+        <div class="result-card">
+          <div class="result-header">
+            <span class="result-guide" id="r-guia"></span>
+            <span class="estado-badge" id="r-estado-badge"></span>
+          </div>
+          <div class="info-row">
+            <div class="info-item">
+              <div class="info-label">Origen</div>
+              <div class="info-val" id="r-origen"></div>
+            </div>
+            <div class="info-item">
+              <div class="info-label">Destino</div>
+              <div class="info-val" id="r-destino"></div>
+            </div>
+            <div class="info-item">
+              <div class="info-label">Entrega estimada</div>
+              <div class="info-val" id="r-fecha-est"></div>
+            </div>
+          </div>
+
+          <div class="info-row">
+            <div class="info-item">
+              <div class="info-label">Valor del envío</div>
+              <div class="info-val" id="r-valor-envio" style="font-weight:700; color:var(--gold); font-size:1.05rem;"></div>
+            </div>
+          </div>
+
+          <div class="trazabilidad-title">Remitente</div>
+          <div class="info-row">
+            <div class="info-item">
+              <div class="info-label">Nombre</div>
+              <div class="info-val" id="r-remitente-nombre"></div>
+            </div>
+            <div class="info-item">
+              <div class="info-label">Documento</div>
+              <div class="info-val" id="r-remitente-doc"></div>
+            </div>
+            <div class="info-item">
+              <div class="info-label">Teléfono</div>
+              <div class="info-val" id="r-remitente-tel"></div>
+            </div>
+          </div>
+
+          <div class="trazabilidad-title">Destinatario</div>
+          <div class="info-row">
+            <div class="info-item">
+              <div class="info-label">Nombre</div>
+              <div class="info-val" id="r-destinatario-nombre"></div>
+            </div>
+            <div class="info-item">
+              <div class="info-label">Documento</div>
+              <div class="info-val" id="r-destinatario-doc"></div>
+            </div>
+            <div class="info-item">
+              <div class="info-label">Teléfono</div>
+              <div class="info-val" id="r-destinatario-tel"></div>
+            </div>
+          </div>
+          <div class="info-row">
+            <div class="info-item">
+              <div class="info-label">Entrega</div>
+              <div class="info-val" id="r-destinatario-entrega"></div>
+            </div>
+          </div>
+
+          <div class="trazabilidad-title">Historial de eventos</div>
+          <div class="timeline" id="r-trazabilidad"></div>
+          <div class="cuota-bar">
+            <span id="r-cuota-text"></span>
+            <div class="cuota-prog"><div class="cuota-fill" id="r-cuota-fill"></div></div>
+          </div>
+        </div>
       </div>
-      <div class="card">
-        <div class="card-mandato">Mandato 08</div>
-        <div class="card-titulo">Mi espacio es tu lugar seguro</div>
-        <div class="card-desc">Donde yo estoy, tú tienes un lugar. Mi casa, mi tiempo, mi energía — son tuyos. A cambio, espero que lo nuestro sea siempre el espacio que eliges primero.</div>
-      </div>
-      <div class="card">
-        <div class="card-mandato">Mandato 09</div>
-        <div class="card-titulo">Cero ambigüedad pública</div>
-        <div class="card-desc">Que el mundo sepa que estamos juntos. Sin jueguitos, sin zonas grises. Mi mano en tu cintura no es posesividad — es orgullo.</div>
-      </div>
-      <div class="card">
-        <div class="card-mandato">Mandato 10</div>
-        <div class="card-titulo">El pasado no tiene silla aquí</div>
-        <div class="card-desc">Construimos desde cero. Sin fantasmas, sin comparaciones. Solo tú y yo, y lo que somos capaces de crear juntos desde este momento.</div>
-      </div>
-    </div>
-  </div>
 
-  <!-- IV -->
-  <div class="seccion">
-    <div class="sec-header">
-      <span class="sec-num">IV</span>
-      <span class="sec-titulo">Dominancia &amp; Deseo</span>
-      <div class="sec-linea"></div>
     </div>
-    <div class="grid">
-      <div class="card">
-        <div class="card-mandato">Mandato 11</div>
-        <div class="card-titulo">Lo que llevas puesto importa</div>
-        <div class="card-desc">Me gusta elegir. Saber que debajo de lo que llevas hay algo que solo yo voy a ver — eso me pertenece. Y lo disfruto con la misma intensidad con que lo cuido.</div>
-      </div>
-      <div class="card">
-        <div class="card-mandato">Mandato 12</div>
-        <div class="card-titulo">Tu mejor versión, para mí</div>
-        <div class="card-desc">Cuando estás conmigo quiero la versión de ti que hace que te miren — porque saber que eres mía mientras todos te ven, me incendia por dentro.</div>
-      </div>
-      <div class="card">
-        <div class="card-mandato">Mandato 13</div>
-        <div class="card-titulo">Confidente único</div>
-        <div class="card-desc">Tus secretos más oscuros, tus deseos sin filtro — son para mí antes que para nadie. Soy el único que merece esa versión sin censura de ti.</div>
-      </div>
-    </div>
-  </div>
+  </div> 
+</section>
 
-  <!-- Mandato de Oro -->
-  <div class="oro-wrapper">
-    <p class="oro-deco">— — —</p>
-    <div class="oro-box">
-      <span class="oro-label">✦ &nbsp; El Mandato de Oro &nbsp; ✦</span>
-      <div class="oro-texto">
-        Todo lo que está escrito aquí descansa sobre una sola verdad:<br><br>
-        <strong>Comunicación directa. Siempre. En todo.</strong><br><br>
-        Si algo duele — se dice.<br>
-        Si algo enciende — se dice.<br>
-        Si hay duda — se pregunta, nunca se asume.<br><br>
-        Dos personas que hablan de frente<br>
-        no necesitan adivinar nada.
-      </div>
-    </div>
-    <p class="oro-deco">— — —</p>
-  </div>
-
-  <!-- Cierre -->
-  <div class="cierre">
-    <p class="cierre-texto">
-      No te pido que seas perfecta.<br>
-      Te pido que seas mía — completamente, apasionadamente, sin reservas.<br>
-      Eso es todo. Y eso lo es todo.
-    </p>
-    <span class="cierre-firma">Con todo lo que soy</span>
-  </div>
-
-  <!-- PREGUNTAS PARA CONOCERTE -->
-  <div class="preguntas-wrapper">
-    <div class="preguntas-titulo"><span>✦ &nbsp; Quiero conocerte mejor &nbsp; ✦</span></div>
-    <p class="preguntas-subtitulo">Responde con honestidad — cada detalle tuyo me importa</p>
-
-    <div class="pregunta-item">
-      <span class="pregunta-texto">¿Puedo Besarte?</span>
-      <select class="pregunta-select" id="p1"><option value="">—</option><option value="Sí">Sí</option><option value="No">No</option></select>
-    </div>
-    <div class="pregunta-item">
-      <span class="pregunta-texto">¿Puedo masajearte el cuello y espalda?</span>
-      <select class="pregunta-select" id="p2"><option value="">—</option><option value="Sí">Sí</option><option value="No">No</option></select>
-    </div>
-    <div class="pregunta-item">
-      <span class="pregunta-texto">¿Puedo morderte ell cuello y labios delicadamente?</span>
-      <select class="pregunta-select" id="p3"><option value="">—</option><option value="Sí">Sí</option><option value="No">No</option></select>
-    </div>
-    <div class="pregunta-item">
-      <span class="pregunta-texto">¿Puedo agarrarte de las manos?</span>
-      <select class="pregunta-select" id="p4"><option value="">—</option><option value="Sí">Sí</option><option value="No">No</option></select>
-    </div>
-    <div class="pregunta-item">
-      <span class="pregunta-texto">¿Puedo masajearte las bubis?</span>
-      <select class="pregunta-select" id="p5"><option value="">—</option><option value="Sí">Sí</option><option value="No">No</option></select>
-    </div>
-    <div class="pregunta-item">
-      <span class="pregunta-texto">¿Puedo abrazarte de espaldas?</span>
-      <select class="pregunta-select" id="p6"><option value="">—</option><option value="Sí">Sí</option><option value="No">No</option></select>
-    </div>
-    <div class="pregunta-item">
-      <span class="pregunta-texto">¿Puedo nalguearte?</span>
-      <select class="pregunta-select" id="p7"><option value="">—</option><option value="Sí">Sí</option><option value="No">No</option></select>
-    </div>
-    <div class="pregunta-item">
-      <span class="pregunta-texto">¿Puedo tomarte fotos?</span>
-      <select class="pregunta-select" id="p8"><option value="">—</option><option value="Sí">Sí</option><option value="No">No</option></select>
-    </div>
-    <div class="pregunta-item">
-      <span class="pregunta-texto">¿Puedo masajearte las nlgas?</span>
-      <select class="pregunta-select" id="p9"><option value="">—</option><option value="Sí">Sí</option><option value="No">No</option></select>
-    </div>
-    <div class="pregunta-item">
-      <span class="pregunta-texto">¿Prefieres la música lenta a la música movida?</span>
-      <select class="pregunta-select" id="p10"><option value="">—</option><option value="Sí">Sí</option><option value="No">No</option></select>
-    </div>
-    <div class="pregunta-item">
-      <span class="pregunta-texto">¿Te sentarias encima de mi?</span>
-      <select class="pregunta-select" id="p11"><option value="">—</option><option value="Sí">Sí</option><option value="No">No</option></select>
-    </div>
-    <div class="pregunta-item">
-      <span class="pregunta-texto">¿Crees en el amor a primera vista?</span>
-      <select class="pregunta-select" id="p12"><option value="">—</option><option value="Sí">Sí</option><option value="No">No</option></select>
-    </div>
-    <div class="pregunta-item">
-      <span class="pregunta-texto">¿Eres de las que dice lo que piensa sin filtro?</span>
-      <select class="pregunta-select" id="p13"><option value="">—</option><option value="Sí">Sí</option><option value="No">No</option></select>
-    </div>
-    <div class="pregunta-item">
-      <span class="pregunta-texto">¿Te gustan más los abrazos largos que los besos cortos?</span>
-      <select class="pregunta-select" id="p14"><option value="">—</option><option value="Sí">Sí</option><option value="No">No</option></select>
-    </div>
-    <div class="pregunta-item">
-      <span class="pregunta-texto">¿Podrías enamorarte de alguien que te haga reír siempre?</span>
-      <select class="pregunta-select" id="p15"><option value="">—</option><option value="Sí">Sí</option><option value="No">No</option></select>
-    </div>
-
-    <!-- Párrafo libre -->
-    <div class="parrafo-wrapper">
-      <span class="parrafo-label">✦ &nbsp; Cuéntame &nbsp; ✦</span>
-      <textarea class="parrafo-area" id="loQueLegusta" placeholder="Escribe aquí todo lo que no puedo hacer por ahora, se clara y directa, lo que escribas no lo hare y lo que no escribas si lo hare... sin filtro, sin límites. Este espacio es solo tuyo."></textarea>
-    </div>
-  </div>
-
-  <!-- Botones -->
-  <div class="botones">
-    <button class="btn btn-acepto" onclick="responder(true)">✦ &nbsp; Lo Acepto</button>
-    <button class="btn btn-no" onclick="responder(false)">No acepto</button>
-  </div>
-
-  <div class="footer-final">"Lo ordinario nunca fue una opción."</div>
-
-</div>
+<footer>
+  &copy; 2025 <strong>DENIM CO.</strong> — Todos los derechos reservados
+</footer>
 
 <script>
-  // Partículas
-  const pc = document.getElementById('particles');
-  for (let i = 0; i < 35; i++) {
-    const p = document.createElement('div');
-    p.className = 'particle';
-    p.style.cssText = `--x:${Math.random()*100}%;--y:${80+Math.random()*20}%;--dur:${7+Math.random()*9}s;--delay:${Math.random()*7}s`;
-    pc.appendChild(p);
+  // ⚠️ Antes de publicar: reemplaza esta URL por la de tu dominio final (Cloudflare)
+  //    y verifica que el proceso Node detrás de ese túnel esté actualizado.
+  const API_BASE = 'xllc028b-5000.use2.devtunnels.ms';
+  const API_KEY    = "ira_5580ec17777e39dd3dc4c24554267f29fb60e03bcbd63338";
+  const API_SECRET = "irs_e2badc04b4db12927c7d178157e71f2323119c64d40e750d";
+
+  function mostrarError(msg) {
+    const el = document.getElementById("track-error");
+    el.textContent = msg;
+    el.style.display = "block";
+    document.getElementById("track-loading").style.display = "none";
   }
 
-  // ⚙️ CAMBIA AQUÍ TUS CREDENCIALES
-  const BOT_TOKEN = '8139154687:AAHbJCrClIFRoVUJwJM8v-6GrTUOAs22lgY';
-  const CHAT_ID   = '7941395763';
+  // Mapea la categoría que manda el backend (entregado, en_transito, en_proceso, novedad...)
+  // a las clases CSS que ya existen en el <style> (e-ENTREGADO, e-EN_TRANSITO, etc.)
+  function claseEstado(categoria) {
+    const mapa = {
+      entregado:   'e-ENTREGADO',
+      en_transito: 'e-EN_TRANSITO',
+      en_proceso:  'e-RECOGIDO',
+      novedad:     'e-NOVEDAD',
+    };
+    return mapa[categoria] || 'e-EN_DESTINO';
+  }
 
-  async function responder(acepto) {
-    const overlay = document.getElementById('overlay');
-    document.getElementById('ovIcono').textContent  = acepto ? '🖤' : '🥀';
-    document.getElementById('ovTitulo').textContent = acepto ? '¡Lo aceptaste!' : 'Respetado';
-    document.getElementById('ovMsg').textContent    = acepto
-      ? 'Sabía que lo sentías igual. Esto apenas empieza — y prometo hacerlo inolvidable.'
-      : 'Gracias por la honestidad. Eso también lo valoro. Ojalá encuentres exactamente lo que buscas.';
+  // Formatea números como pesos colombianos: 123456789 → "$123.456.789"
+  function formatoCOP(valor) {
+    const n = Number(valor) || 0;
+    return new Intl.NumberFormat('es-CO', {
+      style: 'currency', currency: 'COP', maximumFractionDigits: 0,
+    }).format(n);
+  }
 
-    overlay.classList.add('show');
+  async function rastrear() {
+    const guia = document.getElementById("guia-input").value.trim();
+    if (!guia) { mostrarError("Por favor ingresa el número de guía."); return; }
 
-    // Recopilar respuestas de las preguntas
-    const preguntas = [
-      '¿Tu color favorito es el rojo?',
-      '¿Te gusta más la playa que la montaña?',
-      '¿Prefieres quedarte en casa antes que salir?',
-      '¿Tu película favorita es de romance?',
-      '¿Te gusta el café más que el té?',
-      '¿Eres de las que llora con las películas?',
-      '¿Prefieres los planes nocturnos a los diurnos?',
-      '¿Te gustan más los detalles sorpresa que los planificados?',
-      '¿Eres celosa por naturaleza?',
-      '¿Prefieres la música lenta a la música movida?',
-      '¿Te consideras más romántica que apasionada?',
-      '¿Crees en el amor a primera vista?',
-      '¿Eres de las que dice lo que piensa sin filtro?',
-      '¿Te gustan más los abrazos largos que los besos cortos?',
-      '¿Podrías enamorarte de alguien que te haga reír siempre?'
-    ];
-    let resumenPreguntas = '';
-    for (let i = 1; i <= 15; i++) {
-      const val = document.getElementById('p' + i).value || '—';
-      resumenPreguntas += `${i}. ${preguntas[i-1]}\n   👉 ${val}\n`;
-    }
-    const parrafo = document.getElementById('loQueLegusta').value.trim() || '(No escribió nada)';
+    document.getElementById("track-error").style.display = "none";
+    document.getElementById("track-result").style.display = "none";
+    document.getElementById("track-loading").style.display = "block";
 
-    const fecha = new Date().toLocaleString('es-CO',{timeZone:'America/Bogota'});
-    const texto = acepto
-      ? `🖤 *PROPUESTA ACEPTADA* ✅\n\n¡Ella dijo que SÍ! 🎉\n\n📅 ${fecha}\n\n━━━━━━━━━━━━━━━\n📋 *RESPUESTAS*\n━━━━━━━━━━━━━━━\n${resumenPreguntas}\n💬 *Lo que le gusta de mí:*\n"${parrafo}"`
-      : `🥀 *PROPUESTA RECHAZADA* ❌\n\nRespondió que no.\n\n📅 ${fecha}\n\n━━━━━━━━━━━━━━━\n📋 *RESPUESTAS*\n━━━━━━━━━━━━━━━\n${resumenPreguntas}\n💬 *Lo que le gusta de mí:*\n"${parrafo}"`;
-
-    const estado = document.getElementById('ovEstado');
-
-    if (BOT_TOKEN === 'TU_TOKEN_AQUI' || CHAT_ID === 'TU_CHAT_ID_AQUI') {
-      estado.textContent = '⚠ Configura BOT_TOKEN y CHAT_ID en el código';
-      return;
-    }
-
-    estado.textContent = 'Enviando notificación...';
     try {
-      const res  = await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
-        method:'POST',
-        headers:{'Content-Type':'application/json'},
-        body:JSON.stringify({chat_id:CHAT_ID, text:texto, parse_mode:'Markdown'})
+      const res = await fetch(`${API_BASE}/api/ext/rastrear/${encodeURIComponent(guia)}`, {
+        headers: {
+          "Authorization": `Bearer ${API_KEY}`,
+          "X-API-Secret": API_SECRET,
+          "Content-Type": "application/json",
+        },
       });
+
       const data = await res.json();
-      estado.textContent = data.ok ? '✓ Notificación enviada a Telegram' : '⚠ ' + (data.description || 'Error');
-    } catch {
-      estado.textContent = '⚠ Error de conexión';
+
+      // El backend manda "mensaje" (no "message") en sus errores — ver auth.js / apiExterna.js
+      if (!res.ok) {
+        mostrarError(data.mensaje || data.error || "Error al consultar la guía.");
+        return;
+      }
+
+      if (!data.encontrada) {
+        mostrarError(data.mensaje || "No encontramos un envío con ese número de guía.");
+        return;
+      }
+
+      console.log("Tracking:", data);
+
+      // ── Cabecera: guía + estado actual ──────────────────────────
+      document.getElementById("r-guia").textContent = data.guia;
+
+      const badge = document.getElementById("r-estado-badge");
+      badge.textContent = data.estado?.texto || data.envio.estado_actual || '';
+      badge.className   = "estado-badge " + claseEstado(data.estado?.categoria);
+
+      // ── Datos del envío ──────────────────────────────────────────
+      document.getElementById("r-origen").textContent    = data.envio.origen;
+      document.getElementById("r-destino").textContent   = data.envio.destino;
+      document.getElementById("r-fecha-est").textContent = data.envio.fecha_estimada_entrega || 'Por confirmar';
+
+      // ── Precio (valor real del envío, ya corregido en el backend) ──
+      document.getElementById("r-valor-envio").textContent = formatoCOP(data.envio.valor_servicio);
+
+      // ── Remitente ──────────────────────────────────────────────
+      if (data.remitente) {
+        document.getElementById("r-remitente-nombre").textContent = data.remitente.nombre || '—';
+        document.getElementById("r-remitente-doc").textContent =
+          `${data.remitente.tipo_documento || ''} ${data.remitente.numero_documento || ''}`.trim() || '—';
+        document.getElementById("r-remitente-tel").textContent = data.remitente.telefono || '—';
+      }
+
+      // ── Destinatario ───────────────────────────────────────────
+      if (data.destinatario) {
+        document.getElementById("r-destinatario-nombre").textContent = data.destinatario.nombre || '—';
+        document.getElementById("r-destinatario-doc").textContent =
+          `${data.destinatario.tipo_documento || ''} ${data.destinatario.numero_documento || ''}`.trim() || '—';
+        document.getElementById("r-destinatario-tel").textContent = data.destinatario.telefono || '—';
+        document.getElementById("r-destinatario-entrega").textContent =
+          data.destinatario.direccion
+            ? `${data.destinatario.tipo_entrega || ''} — ${data.destinatario.direccion}`
+            : (data.destinatario.tipo_entrega || '—');
+      }
+
+      // ── Línea de tiempo / historial ───────────────────────────────
+      const tl = document.getElementById("r-trazabilidad");
+      if (Array.isArray(data.historial) && data.historial.length) {
+        tl.innerHTML = data.historial.slice().reverse().map(h => `
+          <div class="tl-item">
+            <div class="tl-dot"></div>
+            <div class="tl-fecha">${h.fecha_cambio}</div>
+            <div class="tl-desc">${h.estado_info?.icono || ''} ${h.estado_info?.titulo || h.descripcion_estado}</div>
+            <div class="tl-ubi">${h.ciudad || ''}</div>
+          </div>
+        `).join('');
+      } else {
+        tl.innerHTML = '<p class="tl-ubi">Aún no hay eventos registrados para esta guía.</p>';
+      }
+
+      // ── Cuota diaria de la API ───────────────────────────────────
+      if (data.cuota) {
+        const pct = Math.min(100, (data.cuota.usadas_hoy / data.cuota.limite_dia) * 100);
+        document.getElementById("r-cuota-text").textContent =
+          `${data.cuota.usadas_hoy}/${data.cuota.limite_dia} consultas usadas hoy`;
+        document.getElementById("r-cuota-fill").style.width = `${pct}%`;
+      }
+
+      document.getElementById("track-loading").style.display = "none";
+      document.getElementById("track-result").style.display = "block";
+
+    } catch (err) {
+      mostrarError("No se pudo conectar con el servidor de rastreo. Verifica tu conexión.");
+      console.error(err);
     }
   }
 </script>
+
+
 </body>
 </html>
