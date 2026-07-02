@@ -228,10 +228,6 @@
               <div class="info-label">Valor del envío</div>
               <div class="info-val" id="r-valor-envio" style="font-weight:700; color:var(--gold); font-size:1.05rem;"></div>
             </div>
-            <div class="info-item">
-              <div class="info-label">Valor del flete</div>
-              <div class="info-val" id="r-valor-flete"></div>
-            </div>
           </div>
 
           <div class="trazabilidad-title">Remitente</div>
@@ -367,9 +363,8 @@
       document.getElementById("r-destino").textContent   = data.envio.destino;
       document.getElementById("r-fecha-est").textContent = data.envio.fecha_estimada_entrega || 'Por confirmar';
 
-      // ── Precios (ya corregidos en el backend: valor_servicio = valor real del envío) ──
+      // ── Precio (valor real del envío, ya corregido en el backend) ──
       document.getElementById("r-valor-envio").textContent = formatoCOP(data.envio.valor_servicio);
-      document.getElementById("r-valor-flete").textContent = formatoCOP(data.envio.valor_flete);
 
       // ── Remitente ──────────────────────────────────────────────
       if (data.remitente) {
