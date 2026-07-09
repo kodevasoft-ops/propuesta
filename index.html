@@ -3,203 +3,476 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>DENIM CO. — Pantalones123</title>
+<title>BLUE JEANS | Tienda Online</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   :root {
-    --black: #0f0f0f;
-    --white: #fafafa;
-    --gray: #6b6b6b;
-    --light: #f2f0ec;
-    --accent: #1a1a2e;
-    --gold: #c9a84c;
-    --border: #e0ddd8;
-    --radius: 10px;
-    --success: #1a7a4a;
-    --error: #c0392b;
+    --black:   #0f0f0f;
+    --charcoal:#161616;
+    --white:   #ffffff;
+    --off:     #faf9f7;
+    --cream:   #f3f1ec;
+    --line:    #e4e1da;
+    --gray:    #767267;
+    --gray-lt: #a39e93;
+    --blush:   #c98a86;
+    --radius:  1px;
+    --success: #276b46;
+    --info:    #2a4d8f;
+    --warn:    #8a5a1e;
+    --error:   #a8402a;
+    --plum:    #6a3f8f;
+    --ease: cubic-bezier(.22,.61,.36,1);
   }
-  body { font-family: 'Segoe UI', system-ui, sans-serif; background: var(--white); color: var(--black); line-height: 1.6; }
 
-  /* NAV */
-  nav { display: flex; align-items: center; justify-content: space-between; padding: 1.2rem 2.5rem; border-bottom: 1px solid var(--border); background: var(--white); position: sticky; top: 0; z-index: 100; }
-  .logo { font-size: 1.4rem; font-weight: 700; letter-spacing: 3px; color: var(--black); }
-  .logo span { color: var(--gold); }
-  .nav-links { display: flex; gap: 2rem; list-style: none; }
-  .nav-links a { text-decoration: none; color: var(--gray); font-size: 0.9rem; letter-spacing: 1px; transition: color .2s; }
-  .nav-links a:hover { color: var(--black); }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Inter', system-ui, sans-serif;
+    background: var(--white);
+    color: var(--black);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  h1, h2, h3, .display { font-family: 'Fraunces', Georgia, serif; }
+  a { color: inherit; }
+  img { display: block; max-width: 100%; }
+  ::selection { background: var(--black); color: var(--white); }
 
-  /* HERO */
-  .hero { background: var(--light); padding: 5rem 2.5rem; text-align: center; }
-  .hero-tag { font-size: 0.75rem; letter-spacing: 4px; color: var(--gold); text-transform: uppercase; margin-bottom: 1rem; }
-  .hero h1 { font-size: clamp(2.2rem, 5vw, 4rem); font-weight: 700; line-height: 1.15; letter-spacing: -1px; max-width: 700px; margin: 0 auto 1.5rem; }
-  .hero p { color: var(--gray); max-width: 480px; margin: 0 auto 2.2rem; font-size: 1.05rem; }
-  .btn-primary { display: inline-block; background: var(--black); color: var(--white); padding: 0.85rem 2.2rem; border-radius: var(--radius); font-size: 0.9rem; letter-spacing: 1px; text-decoration: none; transition: opacity .2s; }
-  .btn-primary:hover { opacity: 0.85; }
+  .reveal { opacity: 0; transform: translateY(22px); transition: opacity .8s var(--ease), transform .8s var(--ease); }
+  .reveal.in-view { opacity: 1; transform: translateY(0); }
 
-  /* SECTION TITLE */
-  .section { padding: 4.5rem 2.5rem; max-width: 1100px; margin: 0 auto; }
-  .section-title { font-size: 1.6rem; font-weight: 700; margin-bottom: 0.5rem; letter-spacing: -0.5px; }
-  .section-sub { color: var(--gray); margin-bottom: 2.5rem; font-size: 0.95rem; }
+  /* ---------- ANNOUNCEMENT BAR ---------- */
+  .announce { background: var(--black); color: var(--white); overflow: hidden; position: relative; height: 34px; }
+  .announce-track { display: flex; align-items: center; justify-content: center; height: 34px; }
+  .announce span { font-size: 0.7rem; letter-spacing: 2px; text-transform: uppercase; font-weight: 500; padding: 0 1.3rem; white-space: nowrap; }
+  .announce span:not(:last-child) { border-right: 1px solid rgba(255,255,255,0.25); }
 
-  /* PRODUCT GRID */
-  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 1.5rem; }
-  .card { border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; transition: transform .2s, box-shadow .2s; }
-  .card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(0,0,0,0.09); }
-  .card-img { background: var(--light); aspect-ratio: 3/4; display: flex; align-items: center; justify-content: center; font-size: 5rem; }
-  .card-body { padding: 1rem 1.1rem 1.2rem; }
-  .card-name { font-weight: 600; font-size: 0.95rem; }
-  .card-desc { font-size: 0.82rem; color: var(--gray); margin: 0.2rem 0 0.8rem; }
-  .card-row { display: flex; align-items: center; justify-content: space-between; }
-  .card-price { font-weight: 700; font-size: 1rem; }
-  .badge { font-size: 0.7rem; background: var(--light); border: 1px solid var(--border); border-radius: 20px; padding: 0.2rem 0.65rem; color: var(--gray); letter-spacing: 0.5px; }
-  .badge-new { background: #eaf3e6; border-color: #b4d9a8; color: #2e7b2e; }
+  /* ---------- NAV ---------- */
+  nav { display: flex; align-items: center; justify-content: space-between; padding: 1.1rem 2.5rem; background: var(--black); position: sticky; top: 0; z-index: 100; border-bottom: 1px solid rgba(255,255,255,0.08); }
+  .nav-side { display: flex; align-items: center; gap: 1.3rem; min-width: 150px; }
+  .nav-side.right { justify-content: flex-end; }
+  .icon-btn { background: none; border: none; color: var(--white); cursor: pointer; display: flex; align-items: center; justify-content: center; padding: 0.3rem; position: relative; transition: transform .25s var(--ease), opacity .2s; opacity: 0.88; }
+  .icon-btn:hover { opacity: 1; transform: translateY(-1px); }
+  .icon-btn svg { width: 19px; height: 19px; stroke: currentColor; fill: none; }
+  .cart-dot { position: absolute; top: -2px; right: -2px; width: 7px; height: 7px; border-radius: 50%; background: var(--blush); }
 
-  /* BANNER */
-  .banner { background: var(--accent); color: var(--white); text-align: center; padding: 3.5rem 2rem; }
-  .banner h2 { font-size: 1.8rem; margin-bottom: 0.6rem; letter-spacing: -0.5px; }
-  .banner p { color: rgba(255,255,255,0.65); margin-bottom: 1.8rem; }
-  .btn-outline { display: inline-block; border: 1.5px solid var(--gold); color: var(--gold); padding: 0.8rem 2rem; border-radius: var(--radius); font-size: 0.9rem; letter-spacing: 1px; text-decoration: none; transition: background .2s, color .2s; }
-  .btn-outline:hover { background: var(--gold); color: var(--black); }
+  .brandmark { display: flex; flex-direction: column; align-items: center; gap: 0.3rem; text-decoration: none; }
+  .brandmark img { height: 40px; width: auto; filter: brightness(0) invert(1); }
+  .brandmark .sub { font-size: 0.56rem; letter-spacing: 3px; color: rgba(255,255,255,0.4); text-transform: uppercase; }
 
-  /* TRACKING */
-  #rastreo { background: var(--light); }
-  .track-wrap { max-width: 640px; margin: 0 auto; }
-  .track-box { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius); padding: 2rem; }
+  .search-wrap { max-width: 0; overflow: hidden; transition: max-width .35s var(--ease); display: flex; align-items: center; }
+  .search-wrap.open { max-width: 220px; margin-right: 0.5rem; }
+  .search-wrap input { width: 200px; background: transparent; border: none; border-bottom: 1px solid rgba(255,255,255,0.35); color: var(--white); font-size: 0.85rem; padding: 0.3rem 0.1rem; outline: none; font-family: 'Inter', sans-serif; }
+  .search-wrap input::placeholder { color: rgba(255,255,255,0.4); }
+
+  .mobile-links { max-height: 0; overflow: hidden; background: var(--black); border-bottom: 1px solid rgba(255,255,255,0.08); transition: max-height .4s var(--ease); }
+  .mobile-links.open { max-height: 340px; }
+  .mobile-links ul { list-style: none; display: flex; flex-direction: column; padding: 0.5rem 2.5rem 1.4rem; }
+  .mobile-links a { text-decoration: none; color: rgba(255,255,255,0.82); font-size: 0.92rem; letter-spacing: 1px; padding: 0.6rem 0; border-bottom: 1px solid rgba(255,255,255,0.06); transition: color .2s, padding-left .2s; }
+  .mobile-links a:hover { color: var(--white); padding-left: 4px; }
+
+  /* ---------- HERO ---------- */
+  .hero { position: relative; background: var(--black); color: var(--white); text-align: center; overflow: hidden; min-height: 520px; display: flex; align-items: center; justify-content: center; }
+  .hero-media { position: absolute; inset: 0; }
+  .hero-media img { width: 100%; height: 100%; object-fit: cover; opacity: 0.62; }
+  .hero-media::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,0.35) 0%, rgba(0,0,0,0.15) 45%, rgba(0,0,0,0.55) 100%); }
+  .hero-inner { position: relative; z-index: 1; padding: 3rem 1.5rem; }
+  .hero-tag { font-size: 0.72rem; letter-spacing: 4px; color: rgba(255,255,255,0.75); text-transform: uppercase; margin-bottom: 1.1rem; font-weight: 600; opacity: 0; animation: fadeUp .9s var(--ease) .1s forwards; }
+  .hero blockquote { font-size: clamp(1.5rem, 3.4vw, 2.5rem); font-weight: 500; font-style: italic; line-height: 1.35; letter-spacing: -0.3px; max-width: 760px; margin: 0 auto 1.2rem; opacity: 0; animation: fadeUp .9s var(--ease) .25s forwards; }
+  .hero .provenance { color: rgba(255,255,255,0.7); font-size: 0.95rem; margin-bottom: 2.2rem; opacity: 0; animation: fadeUp .9s var(--ease) .4s forwards; }
+  .hero .cta-wrap { opacity: 0; animation: fadeUp .9s var(--ease) .55s forwards; }
+
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(16px);} to { opacity: 1; transform: translateY(0);} }
+
+  .btn-primary { display: inline-block; background: var(--white); color: var(--black); padding: 0.95rem 2.4rem; border-radius: var(--radius); font-size: 0.78rem; letter-spacing: 2px; text-transform: uppercase; text-decoration: none; transition: background .25s var(--ease), transform .25s var(--ease); font-weight: 700; }
+  .btn-primary:hover { background: var(--blush); color: var(--white); transform: translateY(-2px); }
+  .btn-dark { display: inline-block; background: var(--black); color: var(--white); padding: 0.95rem 2.4rem; border-radius: var(--radius); font-size: 0.78rem; letter-spacing: 2px; text-transform: uppercase; text-decoration: none; transition: background .25s var(--ease), transform .25s var(--ease); font-weight: 700; }
+  .btn-dark:hover { background: var(--blush); transform: translateY(-2px); }
+
+  /* ---------- SECTION TITLE ---------- */
+  .section { padding: 5rem 2.5rem; max-width: 1220px; margin: 0 auto; }
+  .section-head { text-align: center; margin-bottom: 2.8rem; }
+  .section-eyebrow { font-size: 0.7rem; letter-spacing: 3px; text-transform: uppercase; color: var(--gray); font-weight: 600; margin-bottom: 0.5rem; }
+  .section-title { font-size: 1.9rem; font-weight: 500; letter-spacing: -0.5px; }
+  .section-sub { color: var(--gray); font-size: 0.95rem; margin-top: 0.4rem; }
+  .section-foot { text-align: center; margin-top: 2.6rem; }
+  .link-underline { text-decoration: none; color: var(--black); font-size: 0.82rem; letter-spacing: 1.5px; text-transform: uppercase; font-weight: 600; border-bottom: 1.5px solid var(--black); padding-bottom: 3px; transition: opacity .2s; }
+  .link-underline:hover { opacity: 0.55; }
+
+  /* ---------- PRODUCT GRID ---------- */
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 1.8rem 1.5rem; }
+  .card { position: relative; text-decoration: none; color: var(--black); display: block; }
+  .card-img { position: relative; aspect-ratio: 3/4; overflow: hidden; background: var(--cream); border-radius: var(--radius); }
+  .card-img img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: opacity .5s var(--ease), transform .6s var(--ease); }
+  .card-img img.img-b { opacity: 0; }
+  .card:hover .card-img img.img-a { opacity: 0; }
+  .card:hover .card-img img.img-b { opacity: 1; }
+  .card:hover .card-img img { transform: scale(1.04); }
+  .card-oferta { position: absolute; top: 0.7rem; left: 0.7rem; background: var(--black); color: var(--white); font-size: 0.64rem; letter-spacing: 1px; text-transform: uppercase; font-weight: 700; padding: 0.3rem 0.6rem; z-index: 2; }
+  .card-cart { position: absolute; left: 0.7rem; right: 0.7rem; bottom: 0.7rem; background: rgba(255,255,255,0.94); color: var(--black); text-align: center; padding: 0.65rem; font-size: 0.7rem; letter-spacing: 1.5px; text-transform: uppercase; font-weight: 700; opacity: 0; transform: translateY(8px); transition: opacity .3s var(--ease), transform .3s var(--ease); z-index: 2; }
+  .card:hover .card-cart { opacity: 1; transform: translateY(0); }
+  .card-body { padding: 0.9rem 0.1rem 0; }
+  .card-name { font-size: 0.9rem; font-weight: 500; margin-bottom: 0.35rem; line-height: 1.35; }
+  .card-price { font-size: 0.88rem; display: flex; gap: 0.5rem; align-items: baseline; }
+  .price-old { color: var(--gray-lt); text-decoration: line-through; font-size: 0.8rem; }
+  .price-new { font-weight: 700; }
+
+  /* ---------- MID BANNER (The Edit) ---------- */
+  .edit-banner { position: relative; min-height: 420px; display: flex; align-items: center; justify-content: center; text-align: center; overflow: hidden; }
+  .edit-banner img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  .edit-banner::after { content: ""; position: absolute; inset: 0; background: linear-gradient(0deg, rgba(0,0,0,0.55), rgba(0,0,0,0.1)); }
+  .edit-inner { position: relative; z-index: 1; color: var(--white); }
+  .edit-eyebrow { font-size: 0.7rem; letter-spacing: 3px; text-transform: uppercase; opacity: 0.8; margin-bottom: 0.7rem; }
+  .edit-inner h2 { font-size: clamp(1.8rem, 4vw, 3rem); font-weight: 500; margin-bottom: 1.6rem; }
+
+  /* ---------- TRUST BADGES ---------- */
+  .trust { background: var(--cream); }
+  .trust-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; max-width: 1000px; margin: 0 auto; padding: 3.2rem 2rem; text-align: center; }
+  .trust-icon { font-size: 1.6rem; margin-bottom: 0.6rem; }
+  .trust-title { font-weight: 600; font-size: 0.92rem; margin-bottom: 0.25rem; }
+  .trust-desc { font-size: 0.8rem; color: var(--gray); }
+
+  /* ---------- TRACKING ---------- */
+  #rastreo { background: var(--off); border-top: 1px solid var(--line); }
+  .track-wrap { max-width: 660px; margin: 0 auto; }
+  .track-box { background: var(--white); border: 1px solid var(--line); border-radius: var(--radius); padding: 2.2rem; }
   .track-input-row { display: flex; gap: 0.75rem; margin-bottom: 1rem; }
-  .track-input-row input { flex: 1; padding: 0.75rem 1rem; border: 1.5px solid var(--border); border-radius: var(--radius); font-size: 0.95rem; outline: none; transition: border-color .2s; }
-  .track-input-row input:focus { border-color: var(--black); }
-  .track-input-row button { background: var(--black); color: var(--white); border: none; border-radius: var(--radius); padding: 0 1.4rem; font-size: 0.9rem; cursor: pointer; transition: opacity .2s; white-space: nowrap; }
-  .track-input-row button:hover { opacity: 0.8; }
-  .track-note { font-size: 0.78rem; color: var(--gray); margin-bottom: 1.5rem; }
+  .track-input-row input { flex: 1; padding: 0.85rem 1.05rem; border: 1.5px solid var(--line); border-radius: var(--radius); font-size: 0.95rem; outline: none; transition: border-color .25s, box-shadow .25s; font-family: 'Inter', sans-serif; }
+  .track-input-row input:focus { border-color: var(--black); box-shadow: 0 0 0 3px var(--cream); }
+  .track-input-row button { background: var(--black); color: var(--white); border: none; border-radius: var(--radius); padding: 0 1.7rem; font-size: 0.78rem; letter-spacing: 1.5px; text-transform: uppercase; font-weight: 600; cursor: pointer; transition: background .25s var(--ease); white-space: nowrap; }
+  .track-input-row button:hover { background: var(--blush); }
+  .track-input-row button:active { transform: scale(0.98); }
+  .track-note { font-size: 0.78rem; color: var(--gray); margin-bottom: 0.5rem; }
+
+  #track-loading { display: none; padding: 1.6rem 0; }
+  .loader-row { display: flex; align-items: center; gap: 0.9rem; color: var(--gray); font-size: 0.88rem; margin-bottom: 1.2rem; }
+  .spinner { width: 18px; height: 18px; border-radius: 50%; border: 2px solid var(--line); border-top-color: var(--black); animation: spin .8s linear infinite; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .skeleton { height: 12px; border-radius: 4px; background: linear-gradient(90deg, var(--cream) 25%, #fff 37%, var(--cream) 63%); background-size: 400% 100%; animation: shimmer 1.4s ease infinite; }
+  @keyframes shimmer { 0% { background-position: 100% 0; } 100% { background-position: 0 0; } }
+  .skel-line { margin-bottom: 0.7rem; }
+  .skel-1 { width: 55%; height: 16px; }
+  .skel-2 { width: 90%; }
+  .skel-3 { width: 75%; }
+
+  #track-error { display: none; background: #fbeae5; border: 1px solid #edc3b6; border-radius: var(--radius); padding: 1rem 1.2rem; color: var(--error); font-size: 0.88rem; margin-top: 0.5rem; animation: shake .45s var(--ease); }
+  @keyframes shake { 10%,90%{transform:translateX(-1px);} 20%,80%{transform:translateX(2px);} 30%,50%,70%{transform:translateX(-4px);} 40%,60%{transform:translateX(4px);} }
 
   #track-result { display: none; }
-  .result-card { border: 1px solid var(--border); border-radius: var(--radius); padding: 1.2rem 1.4rem; background: var(--white); }
-  .result-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem; flex-wrap: wrap; gap: 0.5rem; }
-  .result-guide { font-weight: 700; font-size: 1rem; }
-  .estado-badge { font-size: 0.75rem; font-weight: 600; letter-spacing: 0.5px; padding: 0.3rem 0.8rem; border-radius: 20px; }
-  .e-ENTREGADO { background: #e6f4ea; color: #1a7a4a; border: 1px solid #b2d9be; }
-  .e-EN_TRANSITO { background: #e8f0fe; color: #1a56c9; border: 1px solid #adc3f5; }
-  .e-RECOGIDO { background: #fef3e2; color: #7a4e1a; border: 1px solid #f5d9a0; }
-  .e-EN_DESTINO { background: #f0e9fe; color: #5a1ac9; border: 1px solid #c9adf5; }
-  .e-NOVEDAD { background: #fde8e8; color: #c0392b; border: 1px solid #f5adad; }
-  .info-row { display: flex; gap: 1rem; margin-bottom: 1rem; flex-wrap: wrap; }
-  .info-item { flex: 1; min-width: 120px; }
-  .info-label { font-size: 0.72rem; color: var(--gray); letter-spacing: 0.5px; text-transform: uppercase; margin-bottom: 0.15rem; }
-  .info-val { font-size: 0.9rem; font-weight: 500; }
-  .trazabilidad-title { font-size: 0.8rem; font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase; color: var(--gray); margin: 1rem 0 0.75rem; }
+  #track-result.animate-in { animation: resultIn .55s var(--ease); }
+  @keyframes resultIn { from { opacity: 0; transform: translateY(14px);} to { opacity: 1; transform: translateY(0);} }
+
+  .result-card { border: 1px solid var(--line); border-radius: var(--radius); padding: 1.4rem 1.5rem; background: var(--white); }
+  .result-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.2rem; flex-wrap: wrap; gap: 0.6rem; }
+  .result-guide { font-family: 'Fraunces', serif; font-weight: 600; font-size: 1.15rem; letter-spacing: 0.3px; }
+  .estado-badge { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.6px; text-transform: uppercase; padding: 0.35rem 0.9rem; border-radius: 20px; opacity: 0; transform: scale(0.85); animation: popIn .4s var(--ease) .1s forwards; }
+  @keyframes popIn { to { opacity: 1; transform: scale(1); } }
+  .e-ENTREGADO { background: #e7f3ec; color: var(--success); border: 1px solid #b7dcc7; }
+  .e-EN_TRANSITO { background: #e9eef8; color: var(--info); border: 1px solid #c3d0ea; }
+  .e-RECOGIDO { background: #f7eede; color: var(--warn); border: 1px solid #ecd3a8; }
+  .e-EN_DESTINO { background: #efe6f5; color: var(--plum); border: 1px solid #d7c1e8; }
+  .e-NOVEDAD { background: #fbeae5; color: var(--error); border: 1px solid #edc3b6; }
+
+  .info-row { display: flex; gap: 1.1rem; margin-bottom: 1.1rem; flex-wrap: wrap; }
+  .info-item { flex: 1; min-width: 130px; opacity: 0; animation: fadeUp .5s var(--ease) forwards; }
+  .info-label { font-size: 0.68rem; color: var(--gray); letter-spacing: 1px; text-transform: uppercase; margin-bottom: 0.2rem; font-weight: 600; }
+  .info-val { font-size: 0.92rem; font-weight: 500; }
+  .trazabilidad-title { font-size: 0.72rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--black); margin: 1.3rem 0 0.85rem; padding-top: 1rem; border-top: 1px solid var(--line); }
+  .trazabilidad-title:first-of-type { border-top: none; padding-top: 0; }
+
   .timeline { position: relative; padding-left: 1.1rem; }
-  .tl-item { position: relative; padding-bottom: 1rem; border-left: 2px solid var(--border); padding-left: 1rem; }
+  .tl-item { position: relative; padding-bottom: 1.1rem; border-left: 2px solid var(--line); padding-left: 1.1rem; opacity: 0; transform: translateX(-8px); animation: tlIn .5s var(--ease) forwards; }
+  @keyframes tlIn { to { opacity: 1; transform: translateX(0); } }
   .tl-item:last-child { border-left: 2px solid transparent; padding-bottom: 0; }
-  .tl-dot { position: absolute; left: -6px; top: 4px; width: 10px; height: 10px; border-radius: 50%; background: var(--gray); border: 2px solid var(--white); }
-  .tl-item:first-child .tl-dot { background: var(--black); }
-  .tl-fecha { font-size: 0.72rem; color: var(--gray); }
-  .tl-desc { font-size: 0.88rem; margin: 0.1rem 0; }
-  .tl-ubi { font-size: 0.75rem; color: var(--gray); }
-  .cuota-bar { margin-top: 1.2rem; padding-top: 1rem; border-top: 1px solid var(--border); font-size: 0.75rem; color: var(--gray); display: flex; align-items: center; gap: 0.5rem; }
-  .cuota-prog { flex: 1; height: 4px; background: var(--border); border-radius: 10px; overflow: hidden; }
-  .cuota-fill { height: 100%; background: var(--gold); border-radius: 10px; }
+  .tl-dot { position: absolute; left: -6px; top: 4px; width: 10px; height: 10px; border-radius: 50%; background: var(--gray-lt); border: 2px solid var(--white); box-shadow: 0 0 0 1px var(--line); }
+  .tl-item:first-child .tl-dot { background: var(--black); box-shadow: 0 0 0 3px var(--cream); }
+  .tl-fecha { font-size: 0.7rem; color: var(--gray); }
+  .tl-desc { font-size: 0.89rem; margin: 0.15rem 0; font-weight: 500; }
+  .tl-ubi { font-size: 0.76rem; color: var(--gray); }
 
-  #track-error { display: none; background: #fde8e8; border: 1px solid #f5adad; border-radius: var(--radius); padding: 1rem 1.2rem; color: var(--error); font-size: 0.9rem; margin-top: 0.5rem; }
-  #track-loading { display: none; text-align: center; padding: 2rem; color: var(--gray); font-size: 0.9rem; }
+  .cuota-bar { margin-top: 1.3rem; padding-top: 1rem; border-top: 1px solid var(--line); font-size: 0.74rem; color: var(--gray); display: flex; align-items: center; gap: 0.6rem; }
+  .cuota-prog { flex: 1; height: 4px; background: var(--line); border-radius: 10px; overflow: hidden; }
+  .cuota-fill { height: 100%; width: 0%; background: var(--black); border-radius: 10px; transition: width 1s var(--ease) .1s; }
 
-  /* Configuración API */
-  .config-notice { background: #fff8e1; border: 1px solid #ffe082; border-radius: var(--radius); padding: 0.9rem 1.1rem; font-size: 0.82rem; color: #7a5c00; margin-bottom: 1.5rem; }
-  .config-notice strong { display: block; margin-bottom: 0.2rem; }
+  .nl-msg { font-size: 0.78rem; color: var(--blush); margin-top: 0.6rem; opacity: 0; height: 0; overflow: hidden; transition: opacity .3s, height .3s; }
+  .nl-msg.show { opacity: 1; height: 18px; }
 
-  /* FOOTER */
-  footer { background: var(--black); color: rgba(255,255,255,0.5); text-align: center; padding: 2rem; font-size: 0.82rem; letter-spacing: 0.5px; }
-  footer strong { color: var(--white); }
+  /* ---------- FOOTER ---------- */
+  footer { background: var(--black); color: rgba(255,255,255,0.55); padding: 4rem 2.5rem 1.5rem; }
+  .footer-grid { display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr; gap: 2.5rem; max-width: 1220px; margin: 0 auto; }
+  .foot-logo { font-family: 'Fraunces', serif; font-size: 1.4rem; letter-spacing: 5px; color: var(--white); font-weight: 600; }
+  .foot-sub { font-size: 0.6rem; letter-spacing: 3px; color: rgba(255,255,255,0.4); text-transform: uppercase; margin: 0.15rem 0 1.1rem; }
+  .foot-desc { font-size: 0.85rem; line-height: 1.7; max-width: 280px; margin-bottom: 1.6rem; }
+  .foot-join-title { font-size: 0.68rem; letter-spacing: 2px; text-transform: uppercase; color: var(--white); margin-bottom: 0.7rem; font-weight: 600; }
+  .foot-join-row { display: flex; gap: 0.5rem; max-width: 300px; }
+  .foot-join-row input { flex: 1; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.16); border-radius: var(--radius); padding: 0.65rem 0.8rem; color: var(--white); font-size: 0.82rem; outline: none; font-family: 'Inter', sans-serif; transition: border-color .2s; }
+  .foot-join-row input::placeholder { color: rgba(255,255,255,0.35); }
+  .foot-join-row input:focus { border-color: var(--white); }
+  .foot-join-row button { background: var(--white); color: var(--black); border: none; border-radius: var(--radius); padding: 0 1.2rem; font-size: 0.7rem; letter-spacing: 1px; text-transform: uppercase; font-weight: 700; cursor: pointer; transition: background .2s; }
+  .foot-join-row button:hover { background: var(--blush); color: var(--white); }
+
+  .foot-col h4 { font-size: 0.68rem; letter-spacing: 2px; text-transform: uppercase; color: var(--white); margin-bottom: 1.3rem; font-weight: 600; }
+  .foot-col ul { list-style: none; display: flex; flex-direction: column; gap: 0.75rem; }
+  .foot-col a { text-decoration: none; color: rgba(255,255,255,0.55); font-size: 0.85rem; transition: color .2s, padding-left .2s; }
+  .foot-col a:hover { color: var(--white); padding-left: 3px; }
+
+  .foot-pay { display: flex; gap: 0.6rem; flex-wrap: wrap; margin-top: 1.4rem; }
+  .foot-pay span { font-size: 0.62rem; letter-spacing: 0.5px; color: rgba(255,255,255,0.4); border: 1px solid rgba(255,255,255,0.15); padding: 0.25rem 0.55rem; border-radius: 3px; }
+
+  .foot-bottom { max-width: 1220px; margin: 3rem auto 0; padding-top: 1.6rem; border-top: 1px solid rgba(255,255,255,0.1); text-align: center; font-size: 0.76rem; letter-spacing: 0.5px; color: rgba(255,255,255,0.35); }
+
+  @media (max-width: 860px) {
+    .footer-grid { grid-template-columns: 1fr 1fr; }
+    .trust-grid { grid-template-columns: 1fr; gap: 1.6rem; }
+    nav { padding: 1rem 1.2rem; }
+    .nav-side { min-width: auto; gap: 0.9rem; }
+    .section { padding: 3.6rem 1.4rem; }
+  }
+  @media (max-width: 520px) {
+    .footer-grid { grid-template-columns: 1fr; }
+    .search-wrap.open { max-width: 130px; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation-duration: 0.001ms !important; transition-duration: 0.001ms !important; }
+  }
 </style>
 </head>
 <body>
 
+<div class="announce">
+  <div class="announce-track">
+    <span>Envío gratis por compras desde $400.000</span>
+    <span>Paga a crédito con ADDI, hasta en 3 cuotas con 0% interés</span>
+  </div>
+</div>
+
 <nav>
-  <div class="logo">DENIM<span>·</span>CO</div>
-  <ul class="nav-links">
-    <li><a href="#coleccion">Colección</a></li>
+  <div class="nav-side left">
+    <button class="icon-btn" id="menu-toggle" aria-label="Menú" onclick="toggleMenu()">
+      <svg id="icon-menu" viewBox="0 0 24 24" stroke-width="1.6" stroke-linecap="round"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+      <svg id="icon-close" viewBox="0 0 24 24" stroke-width="1.6" stroke-linecap="round" style="display:none; position:absolute;"><path d="M6 6l12 12M18 6L6 18"/></svg>
+    </button>
+    <button class="icon-btn" id="search-toggle" aria-label="Buscar" onclick="toggleSearch()">
+      <svg viewBox="0 0 24 24" stroke-width="1.6" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+    </button>
+    <div class="search-wrap" id="search-wrap">
+      <input type="text" placeholder="Buscar productos…">
+    </div>
+  </div>
+
+  <a href="#" class="brandmark">
+    <img src="https://png.pngtree.com/png-clipart/20190625/ourmid/pngtree-blue-jeans-heart-png-image_1513153.jpg" alt="BLUE JEANS">
+    <span class="sub">Industrias BLUE S.A.S</span>
+  </a>
+
+  <div class="nav-side right">
+    <button class="icon-btn" aria-label="Favoritos">
+      <svg viewBox="0 0 24 24" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20.8 8.6c0 4.4-8.8 10-8.8 10s-8.8-5.6-8.8-10a4.8 4.8 0 0 1 8.8-2.7A4.8 4.8 0 0 1 20.8 8.6z"/></svg>
+    </button>
+    <button class="icon-btn" aria-label="Carrito">
+      <svg viewBox="0 0 24 24" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8h12l-1 12H7L6 8z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg>
+      <span class="cart-dot"></span>
+    </button>
+  </div>
+</nav>
+
+<div class="mobile-links" id="mobile-links">
+  <ul>
+    <li><a href="#">Inicio</a></li>
+    <li><a href="#coleccion">Ver todo</a></li>
+    <li><a href="#coleccion">Jeans</a></li>
+    <li><a href="#coleccion">Short</a></li>
+    <li><a href="#coleccion">Faldas</a></li>
+    <li><a href="#coleccion">Chaquetas</a></li>
     <li><a href="#rastreo">Rastrear pedido</a></li>
     <li><a href="#">Contacto</a></li>
   </ul>
-</nav>
+</div>
 
 <!-- HERO -->
 <section class="hero">
-  <p class="hero-tag">Nueva colección 2025</p>
-  <h1>Pantalones que se ajustan a tu estilo</h1>
-  <p>Cortes modernos, telas premium y el confort que mereces para cada día.</p>
-  <a href="#coleccion" class="btn-primary">Ver colección</a>
+  <div class="hero-media">
+    <img src="https://www.BLUEjeans.co/cdn/shop/files/ChatGPT_Image_Apr_28_2026_10_42_19_AM.png?v=1777391125&width=1920" alt="BLUE Jeans — nueva colección">
+  </div>
+  <div class="hero-inner">
+    <p class="hero-tag">Nueva colección</p>
+    <blockquote>&ldquo;Somos una familia cucuteña que hace jeans con amor, dedicación y las manos puestas en cada costura.&rdquo;</blockquote>
+    <p class="provenance">Desde el Norte de Santander para todo Colombia — BLUE</p>
+    <div class="cta-wrap"><a href="#coleccion" class="btn-primary">Ver colección</a></div>
+  </div>
 </section>
 
-<!-- PRODUCTOS -->
+<!-- BESTSELLERS -->
 <section class="section" id="coleccion">
-  <div>
-    <h2 class="section-title">Nuestra colección</h2>
-    <p class="section-sub">Estilos para cada ocasión — desde casual hasta formal.</p>
+  <div class="section-head reveal">
+    <div class="section-eyebrow">Lo más vendido</div>
+    <h2 class="section-title">BestSellers</h2>
   </div>
   <div class="grid">
-    <div class="card">
-      <div class="card-img">👖</div>
-      <div class="card-body">
-        <div class="card-name">Slim Oscuro</div>
-        <div class="card-desc">Corte entallado, mezclilla 12oz, cierre YKK</div>
-        <div class="card-row"><span class="card-price">$129.900</span><span class="badge badge-new">Nuevo</span></div>
+    <a href="#" class="card reveal">
+      <div class="card-img">
+        <span class="card-oferta">Oferta</span>
+        <img class="img-a" src="https://www.BLUEjeans.co/cdn/shop/files/portada_95.jpg?v=1762985357&width=533" alt="Falda AFTERGLOW ROGUE – Ref. 7037-02">
+        <img class="img-b" src="https://www.BLUEjeans.co/cdn/shop/files/detalle_tiro_85.jpg?v=1762985356&width=533" alt="Falda AFTERGLOW ROGUE – detalle">
+        <span class="card-cart">Ver producto</span>
       </div>
-    </div>
-    <div class="card">
-      <div class="card-img">🩳</div>
       <div class="card-body">
-        <div class="card-name">Cargo Caqui</div>
-        <div class="card-desc">6 bolsillos, tela ripstop, ajuste regular</div>
-        <div class="card-row"><span class="card-price">$109.900</span><span class="badge">Popular</span></div>
+        <div class="card-name">Falda AFTERGLOW ROGUE – Ref. 7037-02</div>
+        <div class="card-price"><span class="price-old">$169.900</span><span class="price-new">$139.900</span></div>
       </div>
-    </div>
-    <div class="card">
-      <div class="card-img">👔</div>
+    </a>
+    <a href="#" class="card reveal">
+      <div class="card-img">
+        <span class="card-oferta">Oferta</span>
+        <img class="img-a" src="https://www.BLUEjeans.co/cdn/shop/files/portada_2_d0eb679a-c4b9-4056-b723-bc7fb3df6887.jpg?v=1756224126&width=533" alt="Jeans baggy star ref 7094">
+        <img class="img-b" src="https://www.BLUEjeans.co/cdn/shop/files/detalletiro_1_256a2b24-c23a-4aac-beee-0f48e131509d.jpg?v=1756224126&width=533" alt="Jeans baggy star — detalle">
+        <span class="card-cart">Ver producto</span>
+      </div>
       <div class="card-body">
-        <div class="card-name">Formal Gris</div>
-        <div class="card-desc">Gabardina liviana, corte clásico, anti-arrugas</div>
-        <div class="card-row"><span class="card-price">$149.900</span><span class="badge">Formal</span></div>
+        <div class="card-name">Jeans baggy star ref 7094</div>
+        <div class="card-price"><span class="price-old">$189.900</span><span class="price-new">$179.900</span></div>
       </div>
-    </div>
-    <div class="card">
-      <div class="card-img">👗</div>
+    </a>
+    <a href="#" class="card reveal">
+      <div class="card-img">
+        <img class="img-a" src="https://www.BLUEjeans.co/cdn/shop/files/portada_2_5.jpg?v=1774450272&width=533" alt="Jean Wide Leg Unravel Arena Salvaje">
+        <img class="img-b" src="https://www.BLUEjeans.co/cdn/shop/files/completo_tiro_26.jpg?v=1774450271&width=533" alt="Jean Wide Leg Unravel — detalle">
+        <span class="card-cart">Ver producto</span>
+      </div>
       <div class="card-body">
-        <div class="card-name">Wide Leg Azul</div>
-        <div class="card-desc">Pierna amplia, mezclilla suave, corte alto</div>
-        <div class="card-row"><span class="card-price">$139.900</span><span class="badge badge-new">Nuevo</span></div>
+        <div class="card-name">Jean Wide Leg Unravel Arena Salvaje</div>
+        <div class="card-price"><span class="price-new">$179.900</span></div>
       </div>
-    </div>
+    </a>
+    <a href="#" class="card reveal">
+      <div class="card-img">
+        <span class="card-oferta">Oferta</span>
+        <img class="img-a" src="https://www.BLUEjeans.co/cdn/shop/files/portada_55e813b8-48d9-4dc8-a4fc-130b64679f9d.jpg?v=1755828203&width=533" alt="Cargo humo con cierre ref 7044">
+        <img class="img-b" src="https://www.BLUEjeans.co/cdn/shop/files/detalle_tiro_62adac20-307f-4b9e-b76b-167b9d80aaed.jpg?v=1755828203&width=533" alt="Cargo humo con cierre — detalle">
+        <span class="card-cart">Ver producto</span>
+      </div>
+      <div class="card-body">
+        <div class="card-name">Cargo humo con cierre ref 7044</div>
+        <div class="card-price"><span class="price-old">$189.900</span><span class="price-new">$179.900</span></div>
+      </div>
+    </a>
   </div>
+  <div class="section-foot reveal"><a href="#" class="link-underline">Ver todo</a></div>
 </section>
 
-<!-- BANNER -->
-<div class="banner">
-  <h2>Envíos a todo Colombia</h2>
-  <p>Despacho en 24 horas hábiles. Seguimiento en tiempo real de tu pedido.</p>
-  <a href="#rastreo" class="btn-outline">Rastrear mi pedido</a>
+<!-- THE EDIT -->
+<div class="edit-banner">
+  <img src="https://www.BLUEjeans.co/cdn/shop/files/unravel_jpg.jpg?v=1778163028&width=1920" alt="The Edit: Unravel">
+  <div class="edit-inner reveal">
+    <p class="edit-eyebrow">Colección cápsula</p>
+    <h2>The Edit: Unravel</h2>
+    <a href="#coleccion" class="btn-primary">Ver todo</a>
+  </div>
+</div>
+
+<!-- NUEVAS ENTRADAS -->
+<section class="section">
+  <div class="section-head reveal">
+    <div class="section-eyebrow">Recién llegadas</div>
+    <h2 class="section-title">Las nuevas entradas 🤍</h2>
+    <p class="section-sub">Las que ya están enamorando a las chicas</p>
+  </div>
+  <div class="grid">
+    <a href="#" class="card reveal">
+      <div class="card-img">
+        <img class="img-a" src="https://www.BLUEjeans.co/cdn/shop/files/portada_2_5.jpg?v=1774450272&width=800" alt="Jean Wide Leg Unravel Arena Salvaje">
+        <img class="img-b" src="https://www.BLUEjeans.co/cdn/shop/files/completo_tiro_26.jpg?v=1774450271&width=800" alt="Jean Wide Leg Unravel — detalle">
+        <span class="card-cart">+ Agregar al carrito</span>
+      </div>
+      <div class="card-body">
+        <div class="card-name">Jean Wide Leg Unravel Arena Salvaje</div>
+        <div class="card-price"><span class="price-new">$179.900</span></div>
+      </div>
+    </a>
+    <a href="#" class="card reveal">
+      <div class="card-img">
+        <img class="img-a" src="https://www.BLUEjeans.co/cdn/shop/files/portada1.jpg?v=1773151017&width=800" alt="Cullote azul oscuro ref 8018-01">
+        <img class="img-b" src="https://www.BLUEjeans.co/cdn/shop/files/etalletiro_c5748dfc-94a4-40a3-89bb-1c7e0146391c.jpg?v=1773151017&width=800" alt="Cullote azul oscuro — detalle">
+        <span class="card-cart">+ Agregar al carrito</span>
+      </div>
+      <div class="card-body">
+        <div class="card-name">Cullote azul oscuro ref 8018-01</div>
+        <div class="card-price"><span class="price-new">$159.900</span></div>
+      </div>
+    </a>
+    <a href="#" class="card reveal">
+      <div class="card-img">
+        <img class="img-a" src="https://www.BLUEjeans.co/cdn/shop/files/portada2_4.jpg?v=1773689209&width=800" alt="Jean Wide Leg Unravel Amatista">
+        <img class="img-b" src="https://www.BLUEjeans.co/cdn/shop/files/completotiro_25_06b470a2-3c13-4ef0-af47-8e13a745e6d3.jpg?v=1773689209&width=800" alt="Jean Wide Leg Unravel Amatista — detalle">
+        <span class="card-cart">+ Agregar al carrito</span>
+      </div>
+      <div class="card-body">
+        <div class="card-name">Jean Wide Leg Unravel Amatista</div>
+        <div class="card-price"><span class="price-new">$179.900</span></div>
+      </div>
+    </a>
+    <a href="#" class="card reveal">
+      <div class="card-img">
+        <img class="img-a" src="https://www.BLUEjeans.co/cdn/shop/files/PORTADA_15_2b6e12fd-0ee1-4b12-991d-577efd44e3ba.jpg?v=1772743737&width=800" alt="Cullote tela rígida ref 7083-01">
+        <img class="img-b" src="https://www.BLUEjeans.co/cdn/shop/files/COMPLETORETIRO_10_502d1a58-ddc0-4508-aeeb-a3fb6065a758.jpg?v=1772743737&width=800" alt="Cullote tela rígida — detalle">
+        <span class="card-cart">+ Agregar al carrito</span>
+      </div>
+      <div class="card-body">
+        <div class="card-name">Cullote tela rígida ref 7083-01</div>
+        <div class="card-price"><span class="price-new">$149.900</span></div>
+      </div>
+    </a>
+  </div>
+  <div class="section-foot reveal"><a href="#" class="link-underline">Ver toda la colección</a></div>
+</section>
+
+<!-- TRUST BADGES -->
+<div class="trust">
+  <div class="trust-grid">
+    <div class="reveal">
+      <div class="trust-icon">🚚</div>
+      <div class="trust-title">Envío gratis</div>
+      <div class="trust-desc">En compras desde $299.900 a todo Colombia</div>
+    </div>
+    <div class="reveal">
+      <div class="trust-icon">🇨🇴</div>
+      <div class="trust-title">100% Colombiano</div>
+      <div class="trust-desc">Fabricación nacional — calidad que se siente</div>
+    </div>
+    <div class="reveal">
+      <div class="trust-icon">🔒</div>
+      <div class="trust-title">Pago 100% seguro</div>
+      <div class="trust-desc">PSE, Nequi, Bancolombia, ADDI, Wompi</div>
+    </div>
+  </div>
 </div>
 
 <!-- RASTREO -->
 <section class="section" id="rastreo">
   <div class="track-wrap">
-    <h2 class="section-title">Rastrear pedido</h2>
-    <p class="section-sub">Ingresa el número de guía para ver el estado de tu envío en tiempo real.</p>
+    <div class="section-head reveal" style="text-align:left;">
+      <div class="section-eyebrow">Seguimiento</div>
+      <h2 class="section-title">Rastrear pedido</h2>
+      <p class="section-sub">Ingresa el número de guía para ver el estado de tu envío en tiempo real.</p>
+    </div>
 
-    <div class="track-box">
-
-      <!-- ⚠️ CONFIGURA TUS CREDENCIALES AQUÍ -->
-      <div class="config-notice">
-        <strong>⚙️ Configuración de credenciales</strong>
-        Edita las variables <code>API_KEY</code> y <code>API_SECRET</code> en el script de esta página antes de publicar.
-      </div>
-
+    <div class="track-box reveal">
       <div class="track-input-row">
         <input type="text" id="guia-input" placeholder="Ej: INT-2025-004821" maxlength="30" />
         <button onclick="rastrear()">Rastrear</button>
       </div>
       <p class="track-note">El número de guía lo encuentras en tu correo de confirmación o factura.</p>
 
-      <div id="track-loading">Consultando... ⏳</div>
+      <div id="track-loading">
+        <div class="loader-row"><div class="spinner"></div><span>Consultando el estado de tu envío…</span></div>
+        <div class="skeleton skel-line skel-1"></div>
+        <div class="skeleton skel-line skel-2"></div>
+        <div class="skeleton skel-line skel-3"></div>
+      </div>
       <div id="track-error"></div>
 
       <div id="track-result">
@@ -226,7 +499,7 @@
           <div class="info-row">
             <div class="info-item">
               <div class="info-label">Valor del envío</div>
-              <div class="info-val" id="r-valor-envio" style="font-weight:700; color:var(--gold); font-size:1.05rem;"></div>
+              <div class="info-val" id="r-valor-envio" style="font-weight:700; font-size:1.05rem;"></div>
             </div>
           </div>
 
@@ -278,19 +551,108 @@
       </div>
 
     </div>
-  </div> 
+  </div>
 </section>
 
 <footer>
-  &copy; 2025 <strong>DENIM CO.</strong> — Todos los derechos reservados
+  <div class="footer-grid">
+    <div class="foot-brand">
+      <div class="foot-logo">BLUE</div>
+      <div class="foot-sub">Jeans</div>
+      <p class="foot-desc">Jeans femeninos colombianos de alta calidad. Hechos con amor, para las chicas que saben lo que quieren. 🤍</p>
+      <div class="foot-join-title">Únete a la familia</div>
+      <form class="foot-join-row" onsubmit="return suscribir(event)">
+        <input type="email" placeholder="tu@email.com" required>
+        <button type="submit">Sí, quiero</button>
+      </form>
+      <div class="nl-msg" id="nl-msg">Gracias — revisa tu correo pronto ✓</div>
+      <div class="foot-pay">
+        <span>PSE</span><span>Nequi</span><span>Bancolombia</span><span>ADDI</span><span>Wompi</span><span>Visa</span><span>MC</span>
+      </div>
+    </div>
+
+    <div class="foot-col">
+      <h4>Tienda</h4>
+      <ul>
+        <li><a href="#coleccion">Jeans</a></li>
+        <li><a href="#coleccion">Shorts</a></li>
+        <li><a href="#coleccion">Faldas</a></li>
+        <li><a href="#coleccion">Sets</a></li>
+        <li><a href="#coleccion">Nueva colección</a></li>
+      </ul>
+    </div>
+
+    <div class="foot-col">
+      <h4>Ayuda</h4>
+      <ul>
+        <li><a href="#">Guía de tallas</a></li>
+        <li><a href="#rastreo">Envíos y devoluciones</a></li>
+        <li><a href="#">Preguntas frecuentes</a></li>
+        <li><a href="#">Contacto</a></li>
+      </ul>
+    </div>
+
+    <div class="foot-col">
+      <h4>Marca</h4>
+      <ul>
+        <li><a href="#">Nuestra historia</a></li>
+        <li><a href="#">Política de privacidad</a></li>
+        <li><a href="#">Términos</a></li>
+        <li><a href="#">Trabaja con nosotras</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="foot-bottom">
+    &copy; 2026 BLUE Jeans · Hecho con ♥ en Colombia 🇨🇴
+  </div>
 </footer>
 
 <script>
-  // ⚠️ Antes de publicar: reemplaza esta URL por la de tu dominio final (Cloudflare)
-  //    y verifica que el proceso Node detrás de ese túnel esté actualizado.
-  const API_BASE = 'xllc028b-5000.use2.devtunnels.ms';
-  const API_KEY    = "ira_5580ec17777e39dd3dc4c24554267f29fb60e03bcbd63338";
-  const API_SECRET = "irs_e2badc04b4db12927c7d178157e71f2323119c64d40e750d";
+  /* ============================================================
+     UI: menú móvil, buscador, newsletter, reveal-on-scroll
+     ============================================================ */
+  function toggleMenu() {
+    const panel = document.getElementById('mobile-links');
+    const iconMenu = document.getElementById('icon-menu');
+    const iconClose = document.getElementById('icon-close');
+    const open = panel.classList.toggle('open');
+    iconMenu.style.display = open ? 'none' : 'block';
+    iconClose.style.display = open ? 'block' : 'none';
+  }
+
+  function toggleSearch() {
+    const wrap = document.getElementById('search-wrap');
+    const open = wrap.classList.toggle('open');
+    if (open) setTimeout(() => wrap.querySelector('input').focus(), 200);
+  }
+
+  function suscribir(e) {
+    e.preventDefault();
+    const msg = document.getElementById('nl-msg');
+    msg.classList.add('show');
+    e.target.reset();
+    setTimeout(() => msg.classList.remove('show'), 4000);
+    return false;
+  }
+
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        entry.target.style.transitionDelay = (i % 4) * 0.08 + 's';
+        entry.target.classList.add('in-view');
+        io.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+  /* ============================================================
+     API DE RASTREO — misma lógica original, sin modificar
+     ============================================================ */
+  const API_BASE = 'https://intersoft.kodevasoft.space';
+  const API_KEY    = "itso_e7itF66Hj3i2V0x28lkPPiZTfP^vA&K+0S9!VMCGU4me6ESfGT%Jfv%D2%O#IAGBJ8wYQUdZsypN*v2G!eHA51R*9o44zxPR";
+  const API_SECRET = "nrft_R+*wug4eRUCXCyXcc@xD!3h_9*lmU$I7Qy1Au$yp*6EoCdzZVoy%vKuSHdw=zq6vcjgs59WSTJ0IAOAAW#xu71V4b-p%gQq50";
 
   function mostrarError(msg) {
     const el = document.getElementById("track-error");
@@ -325,6 +687,7 @@
 
     document.getElementById("track-error").style.display = "none";
     document.getElementById("track-result").style.display = "none";
+    document.getElementById("track-result").classList.remove("animate-in");
     document.getElementById("track-loading").style.display = "block";
 
     try {
@@ -357,6 +720,7 @@
       const badge = document.getElementById("r-estado-badge");
       badge.textContent = data.estado?.texto || data.envio.estado_actual || '';
       badge.className   = "estado-badge " + claseEstado(data.estado?.categoria);
+      badge.style.animation = 'none'; void badge.offsetWidth; badge.style.animation = '';
 
       // ── Datos del envío ──────────────────────────────────────────
       document.getElementById("r-origen").textContent    = data.envio.origen;
@@ -386,11 +750,11 @@
             : (data.destinatario.tipo_entrega || '—');
       }
 
-      // ── Línea de tiempo / historial ───────────────────────────────
+      // ── Línea de tiempo / historial (con aparición escalonada) ────
       const tl = document.getElementById("r-trazabilidad");
       if (Array.isArray(data.historial) && data.historial.length) {
-        tl.innerHTML = data.historial.slice().reverse().map(h => `
-          <div class="tl-item">
+        tl.innerHTML = data.historial.slice().reverse().map((h, i) => `
+          <div class="tl-item" style="animation-delay:${0.15 + i * 0.09}s">
             <div class="tl-dot"></div>
             <div class="tl-fecha">${h.fecha_cambio}</div>
             <div class="tl-desc">${h.estado_info?.icono || ''} ${h.estado_info?.titulo || h.descripcion_estado}</div>
@@ -401,16 +765,25 @@
         tl.innerHTML = '<p class="tl-ubi">Aún no hay eventos registrados para esta guía.</p>';
       }
 
-      // ── Cuota diaria de la API ───────────────────────────────────
+      // ── Escalona la aparición de cada bloque de información ───────
+      document.querySelectorAll('#track-result .info-item').forEach((el, i) => {
+        el.style.animationDelay = (0.1 + i * 0.05) + 's';
+      });
+
+      // ── Cuota diaria de la API (barra animada) ────────────────────
+      const fill = document.getElementById("r-cuota-fill");
+      fill.style.width = '0%';
       if (data.cuota) {
         const pct = Math.min(100, (data.cuota.usadas_hoy / data.cuota.limite_dia) * 100);
         document.getElementById("r-cuota-text").textContent =
           `${data.cuota.usadas_hoy}/${data.cuota.limite_dia} consultas usadas hoy`;
-        document.getElementById("r-cuota-fill").style.width = `${pct}%`;
+        requestAnimationFrame(() => requestAnimationFrame(() => { fill.style.width = `${pct}%`; }));
       }
 
       document.getElementById("track-loading").style.display = "none";
-      document.getElementById("track-result").style.display = "block";
+      const resultEl = document.getElementById("track-result");
+      resultEl.style.display = "block";
+      resultEl.classList.add("animate-in");
 
     } catch (err) {
       mostrarError("No se pudo conectar con el servidor de rastreo. Verifica tu conexión.");
@@ -418,7 +791,6 @@
     }
   }
 </script>
-
 
 </body>
 </html>
